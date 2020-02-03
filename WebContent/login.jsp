@@ -13,6 +13,7 @@
      <link href="css/login.css" type="text/css" rel="stylesheet" />
 	<!-- js files -->
 	<script src="js/login.js"></script>
+
 	<!-- /js files -->
 </head>
 <body>
@@ -31,9 +32,12 @@
                 <input name="lru" type="hidden"  value="login"/>
                 <input name="log" type="hidden" value="log"/>
             </form>
+
 			<div id="regst">
                 如果你还没有账户，请点击&nbsp;&nbsp;<a href="regist.jsp">注册</a>
             </div>
+           <%-- <a href="//wpa.qq.com/msgrd?v=3&amp;uin=907022598&amp;site=Discuz! Board&amp;menu=yes&amp;from=discuz" target="_blank" title="QQ">
+                <img src="static/image/common/site_qq.jpg" alt="QQ"></a>--%>
         </div>
         <ul>
             <li></li>

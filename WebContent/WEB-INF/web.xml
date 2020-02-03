@@ -130,4 +130,17 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/admin/Search</url-pattern>
   </servlet-mapping>
+
+
+  <servlet>
+    <description></description>
+    <display-name>Jsontest</display-name>
+    <servlet-name>Jsontest</servlet-name>
+    <servlet-class>com.shetuan.servelt.Jsontest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jsontest</servlet-name>
+    <url-pattern>/Jsontest</url-pattern>
+  </servlet-mapping>
+
 </web-app>
