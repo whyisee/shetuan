@@ -85,6 +85,7 @@ public class LoginDao extends BaseDao {
 				login.setLoginPass(rs.getString("login_pass"));
 				login.setManagerId(rs.getInt("manager_id"));
 			}
+			System.out.println("Test--------19:59--->:"+login);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

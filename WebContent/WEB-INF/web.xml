@@ -143,4 +143,13 @@
     <url-pattern>/Jsontest</url-pattern>
   </servlet-mapping>
 
+  <!--验证码-->
+  <servlet>
+    <servlet-name>ValidateCodeServlet</servlet-name>
+    <servlet-class>com.shetuan.servelt.ValidateCodeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ValidateCodeServlet</servlet-name>
+    <url-pattern>/servlet/validateCodeServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

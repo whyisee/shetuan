@@ -1,3 +1,7 @@
+
+
+## 尊重原作者，以下信息为原项目作者所著，原项目地址：git@github.com:jelly54/community-management-system.git
+
 # CommunityManagementSystem
 ## 社团管理系统
 很早之前学习时的第一个项目，sql文件丢失了，手动写了几个，如需要达到理想的界面展示，需要手动添加一些数据。

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+         pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,6 +11,7 @@
      <link href="css/login.css" type="text/css" rel="stylesheet" />
 	<!-- js files -->
 	<script src="js/login.js"></script>
+<script src="js/jquery.min.js"></script>
 
 	<!-- /js files -->
 </head>
@@ -26,9 +25,15 @@
             	<%if(request.getAttribute("return_uri")!=null) {%>
 				<input type="hidden" name="return_uri" value="<%=request.getAttribute("return_uri") %>"/>
 				<%} %>
-                <input name="username" type="text" placeholder="登录名"/>
-                <input name="userpass" type="password" placeholder="密码" />
-                <input type="submit" value="登录" onclick="return check(this)"/>
+                <input name="username" id="username" type="text" placeholder="登录名"/>
+                <input name="userpass" id="userpass" type="password" placeholder="密码" />
+                <div class="validateCode">
+                    <input name="validateCode" id="validateCode" type="text" placeholder="验证码" />
+                    <img alt="验证码看不清，换一张" src="/servlet/validateCodeServlet" id="validateCodeImg" onclick="changeImg()">
+                <a href="javascript:void(0)" onclick="changeImg()">看不清，换一张</a>
+                </div>
+                <input type="button" value="登录" onclick="return check(this);"/>
+
                 <input name="lru" type="hidden"  value="login"/>
                 <input name="log" type="hidden" value="log"/>
             </form>
@@ -52,5 +57,10 @@
             <li></li>
         </ul>
     </div>
+<script type="">
+    function login(){
+
+    }
+</script>
 </body>
 </html>

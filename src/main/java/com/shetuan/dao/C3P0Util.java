@@ -35,6 +35,7 @@ public class C3P0Util {
 			dbusername = properties.getProperty("dbusername");
 			dbpass = properties.getProperty("dbpass");
 
+			System.out.println("Test--------20:00--->:"+dbdriver);
 			comboPooledDataSource.setDriverClass(dbdriver);
 			comboPooledDataSource.setJdbcUrl(dburl);
 			comboPooledDataSource.setUser(dbusername);
