@@ -34,7 +34,7 @@ CREATE TABLE `activity` (
   `activity_info` varchar(100) DEFAULT NULL,
   `activity_video` varchar(100) DEFAULT NULL,
   `activity_photo` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `community` (
   `community_classname` varchar(100) DEFAULT NULL,
   `community_create` varchar(100) DEFAULT NULL,
   `community_info` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `communityclass` (
   `class_id` varchar(100) DEFAULT NULL,
   `community_id` varchar(100) DEFAULT NULL,
   `class_name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +112,7 @@ CREATE TABLE `login` (
   `login_name` varchar(100) DEFAULT NULL,
   `login_pass` varchar(100) DEFAULT NULL,
   `login_id` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `member` (
   `creat_community` varchar(100) DEFAULT NULL,
   `join_community` varchar(100) DEFAULT NULL,
   `join_communityid` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
