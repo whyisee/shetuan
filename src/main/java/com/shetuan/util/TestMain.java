@@ -10,4 +10,9 @@ package com.shetuan.util;
  * @used in: community-management-system
  */
 public class TestMain {
+    public static void main(String[] args){
+
+        String a=MD5Utils.getMD5("123456");
+        System.out.println("Test--------15:03--->:"+a);
+    }
 }

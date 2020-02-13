@@ -39,8 +39,9 @@ function check(form) {
                     datatype: "json",
                     success:function(result){
                         //alert(result);
-                        console.log(result)
+                        //console.log(result)
                         if(null!=result) {
+                            changeImg();
                             if (result.loginId == "0" && result.managerId == "1") {
                                 window.location.href = "admin";
                             }

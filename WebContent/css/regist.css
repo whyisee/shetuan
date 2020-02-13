@@ -17,6 +17,7 @@
             background: -webkit-linear-gradient(to bottom right,#50a3a2,#53e3a6);
         }
         .container {
+            text-align: center;
             width: 60%;
             margin: 0 auto;
         }
@@ -27,7 +28,9 @@
         }
         .container input {
             width: 320px;
+            /*
             display: block;
+            */
             height: 36px;
             border: 0;
             outline: 0;

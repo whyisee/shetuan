@@ -18,8 +18,10 @@
             background: -webkit-linear-gradient(to bottom right,#50a3a2,#53e3a6);
         }
         .container {
+            text-align: center;
             width: 60%;
             margin: 10% auto;
+            padding: 10% auto;
         }
         .container h1 {
             text-align: center;
@@ -28,7 +30,9 @@
         }
         .container input {
             width: 320px;
+            /*
             display: block;
+            */
             height: 36px;
             border: 0;
             outline: 0;
@@ -45,6 +49,10 @@
             color: #50a3a2;
         }
 
+        .validateCode {
+            width: 120px;
+
+        }
         .container input[type='submit'] {
             font-size: 16px;
             letter-spacing: 2px;

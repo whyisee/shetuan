@@ -12,9 +12,14 @@
 <link href="css/regist.css" type="text/css" rel="stylesheet" />
 <!-- js files -->
 	<script src="js/regist.js"></script>
+    <script src="js/md5.js"></script>
+
 <!-- /js files -->
 </head>
 <body>
+<script type="">
+    console.log(hex_md5("123456"))
+</script>
     <div class="wrap">
         <div class="container">
             <h1>注册</h1><br>
@@ -28,6 +33,11 @@
                 <input id="passwordAgain" name="repass" type="password" placeholder="确认密码" onblur="checkPassword();"/>
                 <input id="address" name="email" type="text" placeholder="邮箱" onblur="checkAddress"/>
                 <input id="tel" name="phone" type="text" placeholder="电话" onblur="checkTel();"/>
+                <div class="">
+                    <input style="vertical-align:middle; width: 240px" name="validateCode" id="validateCode" type="text" placeholder="验证码" />
+                    <img  style="vertical-align:middle;"  alt="验证码看不清，换一张" src="/servlet/validateCodeServlet" id="validateCodeImg" onclick="changeImg()">
+
+                </div>
                 <input type="submit" value="注 册" onclick="return registCheck(this)"/>
             	<input name="ope" type="hidden"  value="index"/>
             </form>

@@ -1,25 +1,81 @@
--- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
---
--- Host: localhost    Database: shetuan
--- ------------------------------------------------------
--- Server version	5.7.29-0ubuntu0.18.04.1
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-create database shetuan;
+-- 创建数据库
+create database if not exists shetuan;
 use shetuan;
---
--- Table structure for table `activity`
---
+
+-- 创建序列
+drop table if exists sequence;
+create table sequence (
+seq_name        VARCHAR(50) NOT NULL, -- 序列名称
+current_val     INT         NOT NULL, -- 当前值
+increment_val   INT         NOT NULL    DEFAULT 1, -- 步长(跨度)
+PRIMARY KEY (seq_name)   );
+
+INSERT INTO sequence VALUES ('seq_test1_num1', '0', '1');
+INSERT INTO sequence VALUES ('seq_test1_num2', '100000', '2');
+
+create function currval(v_seq_name VARCHAR(50))
+returns integer(11)
+begin
+ declare value integer;
+ set value = 0;
+ select current_val into value  from sequence where seq_name = v_seq_name;
+   return value;
+end;
+
+create function nextval (v_seq_name VARCHAR(50)) returns integer(11)
+begin
+    update sequence set current_val = current_val + increment_val  where seq_name = v_seq_name;
+	return currval(v_seq_name);
+end;
+
+
+-- 创建登录表
+CREATE TABLE if not exists tc_acct_login (
+login_id	varchar(20) not NULL,
+login_name	varchar(20) not NULL,
+login_pass	varchar(200) not NULL,
+status	    varchar(2)  not NULL DEFAULT '1',
+PRIMARY KEY (login_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 创建登录角色表
+CREATE TABLE if not exists tc_acct_role (
+login_id	varchar(20)  not NULL,
+login_name	varchar(20)  not NULL,
+role_id	    varchar(20)  not NULL,
+status	    varchar(2)   not NULL DEFAULT '1',
+PRIMARY KEY (login_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 创建登录基本信息表
+CREATE TABLE if not exists tc_acct_member (
+login_id		varchar(20) not NULL,
+login_name		varchar(20) not NULL,
+user_name		varchar(50) DEFAULT NULL,
+student_id		varchar(50) DEFAULT NULL,
+sex		        varchar(10) DEFAULT NULL,
+in_date		    varchar(10) DEFAULT NULL,
+college		    varchar(50) DEFAULT NULL,
+specially		varchar(50) DEFAULT NULL,
+phone		    varchar(20) DEFAULT NULL,
+address		    varchar(200) DEFAULT NULL,
+email		    varchar(50) DEFAULT NULL,
+create_date		varchar(20) DEFAULT NULL,
+is_add_info		varchar(2)  not NULL DEFAULT '0',
+status		    varchar(2)  not NULL DEFAULT '1',
+PRIMARY KEY (login_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 角色码表
+CREATE TABLE if not exists tc_cde_role (
+role_id	varchar(10)              not NULL,
+role_name	varchar(50)          not NULL,
+remark	varchar(200)             DEFAULT NULL,
+status	varchar(2)               not NULL DEFAULT '1',
+PRIMARY KEY (role_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `activity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
