@@ -49,46 +49,14 @@ public class LoginServlet extends HttpServlet {
 		MemberDao memberdao = new MemberDao();
 		Login login = logindao.login(o.getLoginName(), o.getLoginPass());
 		
-		System.out.println("Test--------21:10--->:"+login);
+		//System.out.println("Test--------21:10--->:"+login);
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.write(JSONUtil.toJson(login));//通过流的形式响应
 		out.close();
 
 		return;
-/*		// 获取是普通界面登录还是后台登录的标记
-		String log = request.getParameter("log");
-		request.getSession().setAttribute("log", log);
-		// 获取返回URL值ַ
-//		String returnUri = request.getParameter("return_uri");
 
-
-
-		// 获取界面传入的用户名密码
-		String username = request.getParameter("username");
-		String userpass = request.getParameter("userpass");
-		// 调用登录方法
-		//Login login = logindao.login(username, userpass);
-		if (login == null) {// 登录失败，返回到对应的请求界面
-			request.getRequestDispatcher("login.jsp?error=uname").forward(request, response);
-			return;
-		} else {// 登陆成功，登录到对应界面
-			System.out.println("Test--------13:59--->:"+login.getManagerId());
-
-			//修改后台判断登录用户类型
-			int managerId =login.getManagerId();
-			if (managerId==0) {// 登录到普通界面
-				request.getSession().setAttribute("msg", 2);
-				request.getSession().setAttribute("login", login);
-				response.sendRedirect("index.jsp");
-				return;
-			} else if (managerId==1) {// 登录到后台
-				Member member = memberdao.getMemberByName(login.getLoginName());
-				request.getSession().setAttribute("member", member);
-				response.sendRedirect("admin");
-				return;
-			}
-		}*/
 	}
 
 }
