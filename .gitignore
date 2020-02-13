@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+/out/
+/build/
+/.settings/
+/target/
+/.externalToolBuilders/
+/WebContent/WEB-INF/classes/
