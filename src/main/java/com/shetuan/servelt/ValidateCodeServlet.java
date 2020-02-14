@@ -26,9 +26,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 
 @SuppressWarnings("serial")
+@Configuration
 public class ValidateCodeServlet extends HttpServlet {
 
     public static final String VALIDATE_CODE = "validateCode";
@@ -152,5 +156,6 @@ public class ValidateCodeServlet extends HttpServlet {
         }
         return s.toString();
     }
+
 
 }
