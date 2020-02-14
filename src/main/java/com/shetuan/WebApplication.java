@@ -1,5 +1,6 @@
 package com.shetuan;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,10 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Modified By:
  * @used in: community-management-system
  */
+@MapperScan("com.shetuan.mapper")
 
 @SpringBootApplication
-public class WebMain {
+public class WebApplication {
     public static void main(String args[]){
-    SpringApplication.run(WebMain.class);
+    SpringApplication.run(WebApplication.class);
     }
 }

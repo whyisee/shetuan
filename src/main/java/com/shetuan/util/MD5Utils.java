@@ -1,7 +1,10 @@
 package com.shetuan.util;
 
+import org.springframework.util.DigestUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 
 /**
  * use for :
@@ -38,6 +41,11 @@ public class MD5Utils {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
         return null;
     }
+/*    public static String getMD5(String input) {
+        return DigestUtils.md5Hex(input.trim()).toUpperCase();
+    }*/
+
 }

@@ -10,13 +10,15 @@
     <title>社团管理</title>
     <script src="js/regist.js"></script>
     <script src="js/md5.js"></script>
+    <script src="js/jquery.min.js"></script>
+
     <link href="css/regist.css" type="text/css" rel="stylesheet" />
 
 </head>
 
 <body>
 <script type="">
-    console.log(hex_md5("123456"))
+    //console.log(hex_md5("123456"))
 </script>
     <div class="wrap">
         <div class="container">
@@ -25,7 +27,7 @@
     		<c:if test="${param.rs =='fail' }"><font -size="4px"; color=red>&nbsp;&nbsp;&nbsp;<b>注册失败，请重新尝试</b></font></c:if>
     		<c:if test="${param.rs =='exist' }"><font -size="4px"; color=red>&nbsp;&nbsp;&nbsp;<b>登录名已存在</b></font></c:if>
    
-            <form action="Regist" method="post" name="myfor">
+            <form action="/member/regist" method="post" name="myfor" id="myfor">
                 <input id="name"  name="username" type="text" placeholder="用户名" onblur=""/>
                 <div></div>
                 <input id="password" name="userpass" type="password" placeholder="密码" onblur=""/>
@@ -45,8 +47,10 @@
                     <img  style="vertical-align:middle;"  alt="验证码看不清，换一张" src="/servlet/validateCodeServlet" id="validateCodeImg" onclick="changeImg()">
 
                 </div>
-                <input type="submit" value="注 册" onclick="return registCheck(this)"/>
+                <input type="button" value="注 册" onclick="return registCheck(this)"/>
             	<input name="ope" type="hidden"  value="index"/>
+                <input name="md5password" id="md5password" type="hidden"  value=""/>
+
             </form>
             <div id="regst">
                 如果您已有账号，请点击这里<a href="login.jsp" class="link">登录</a>
