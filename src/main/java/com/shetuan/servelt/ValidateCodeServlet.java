@@ -32,7 +32,6 @@ import org.springframework.context.annotation.Configuration;
 
 
 @SuppressWarnings("serial")
-@Configuration
 public class ValidateCodeServlet extends HttpServlet {
 
     public static final String VALIDATE_CODE = "validateCode";
