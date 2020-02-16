@@ -4,15 +4,18 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.shetuan.entity.MemberEntity;
 import com.shetuan.mapper.MemberMapper;
+import com.shetuan.responsitory.MemberResponsitory;
 import com.shetuan.util.ParamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * use for :
@@ -31,6 +34,8 @@ public class MemberController extends BaseController{
     @Autowired
     MemberMapper memberMapper;
 
+    @Autowired
+    MemberResponsitory memberResponsitory;
 
     @RequestMapping("/regist")
     public String registMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity){
@@ -40,10 +45,17 @@ public class MemberController extends BaseController{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
         String dateNowStr = sdf.format(d);
-        member.setCreateDate(dateNowStr);
+        //member.setCreateDate(dateNowStr);
         memberMapper.insert(member);
         modelMap.put("columnInfo", "");
         System.out.println("Test--------15:56--->:"+param);
         return "/index.jsp";
     }
+
+    @GetMapping("/findAll")
+    public List<MemberEntity> findAll(){
+        return memberResponsitory.findAll();
+    }
+
+
 }
