@@ -1,5 +1,6 @@
 package com.shetuan.responsitory;
 
+import com.shetuan.entity.MemberEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,11 @@ public class MemberResponsitoryTest {
     private MemberResponsitory memberResponsitory;
     @Test
     void findAll(){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setLoginId("123");
+        memberEntity.setLoginName("123");
+        memberEntity.setIsAddInfo("0");
+        memberResponsitory.saveAndFlush(memberEntity);
         System.out.println("Test--------19:09--->:"+memberResponsitory.findAll());
     }
 }

@@ -13,4 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @used in: community-management-system
  */
 public interface MemberResponsitory extends JpaRepository<MemberEntity,String> {
+
+
 }
