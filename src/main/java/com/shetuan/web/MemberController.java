@@ -31,12 +31,15 @@ import java.util.List;
 @RequestMapping(value="/member")
 public class MemberController extends BaseController{
 
-    @Autowired
-    MemberMapper memberMapper;
+    //@Autowired
+    //MemberMapper memberMapper;
 
     @Autowired
     MemberResponsitory memberResponsitory;
 
+    /*
+    注册接口
+    */
     @RequestMapping("/regist")
     public String registMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity){
         JSONObject param = ParamUtils.getParamObjectWithFormData(request);
@@ -45,8 +48,32 @@ public class MemberController extends BaseController{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
         String dateNowStr = sdf.format(d);
+
         //member.setCreateDate(dateNowStr);
-        memberMapper.insert(member);
+        //获取用户id
+        member.setLoginId( param.get("loginId").toString());
+        member.setLoginName("123");
+        member.setIsAddInfo("0");
+        memberResponsitory.save(member);
+        modelMap.put("columnInfo", "");
+        System.out.println("Test--------15:56--->:"+param);
+        return "/index.jsp";
+    }
+
+    @RequestMapping("/delete")
+    public String deleteMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity){
+        JSONObject param = ParamUtils.getParamObjectWithFormData(request);
+
+        MemberEntity member= JSON.parseObject(param.toString(), MemberEntity.class);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d = new Date();
+        String dateNowStr = sdf.format(d);
+
+        //member.setCreateDate(dateNowStr);
+        member.setLoginId( param.get("loginId").toString());
+        member.setLoginName("123");
+        member.setIsAddInfo("0");
+        memberResponsitory.deleteById(param.get("loginId").toString());
         modelMap.put("columnInfo", "");
         System.out.println("Test--------15:56--->:"+param);
         return "/index.jsp";

@@ -12,6 +12,7 @@ PRIMARY KEY (seq_name)   );
 
 INSERT INTO sequence VALUES ('seq_test1_num1', '0', '1');
 INSERT INTO sequence VALUES ('seq_test1_num2', '100000', '2');
+INSERT INTO sequence VALUES ('seq_user_id', '100000', '1');
 
 create function currval(v_seq_name VARCHAR(50))
 returns integer(11)

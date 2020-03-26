@@ -16,21 +16,15 @@
 	<!-- /js files -->
 </head>
 <body>
-
     <div class="wrap">
-
         <div class="container">
-
             <h1>欢迎</h1>
-            <c:if test="${param.error =='uname' }"><font color=red >用户名密码错误</font></c:if>
-            
+            <%--<c:if test="${param.error =='uname' }"><font color=red >用户名密码错误</font></c:if>--%>
             <form name="myform" action="Login" method="post">
             	<%if(request.getAttribute("return_uri")!=null) {%>
 				<input type="hidden" name="return_uri" value="<%=request.getAttribute("return_uri") %>"/>
 				<%} %>
-                <p></p>
-                <input name="username" id="username" type="text" placeholder="登录名"/>
-                <p></p>
+                <input name="username" id="username" type="text" placeholder="登录名"/><br>
                 <input name="userpass" id="userpass" type="password" placeholder="密码" />
                 <div class="">
                     <input style="vertical-align:middle; width: 240px" name="validateCode" id="validateCode" type="text" placeholder="验证码" />
