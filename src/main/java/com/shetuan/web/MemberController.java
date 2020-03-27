@@ -2,16 +2,22 @@ package com.shetuan.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.shetuan.entity.LoginEntity;
 import com.shetuan.entity.MemberEntity;
 import com.shetuan.mapper.MemberMapper;
+import com.shetuan.responsitory.LoginResponsitory;
+import com.shetuan.responsitory.ManageSqlTools;
 import com.shetuan.responsitory.MemberResponsitory;
+import com.shetuan.util.JSONUtil;
+import com.shetuan.util.MD5Utils;
 import com.shetuan.util.ParamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +33,7 @@ import java.util.List;
  * @used in: community-management-system
  */
 
-@RestController
+@Controller
 @RequestMapping(value="/member")
 public class MemberController extends BaseController{
 
@@ -36,6 +42,11 @@ public class MemberController extends BaseController{
 
     @Autowired
     MemberResponsitory memberResponsitory;
+    @Autowired
+    private LoginResponsitory loginResponsitory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /*
     注册接口
@@ -45,19 +56,35 @@ public class MemberController extends BaseController{
         JSONObject param = ParamUtils.getParamObjectWithFormData(request);
 
         MemberEntity member= JSON.parseObject(param.toString(), MemberEntity.class);
+        LoginEntity login= JSON.parseObject(param.toString(), LoginEntity.class);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
         String dateNowStr = sdf.format(d);
 
-        //member.setCreateDate(dateNowStr);
         //获取用户id
-        member.setLoginId( param.get("loginId").toString());
-        member.setLoginName("123");
+        String loginID=entityManager.createNativeQuery(SeqFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
+
+        //设置member表信息,保存
+        member.setLoginId(loginID);
+        member.setLoginName(param.getString("username"));
+        member.setCreateDate(dateNowStr);
         member.setIsAddInfo("0");
+        member.setEmail(param.getString("email"));
+        member.setPhone(param.getString("phone"));
         memberResponsitory.save(member);
-        modelMap.put("columnInfo", "");
-        System.out.println("Test--------15:56--->:"+param);
-        return "/index.jsp";
+
+        //设置login表信息,保存
+        login.setLoginId(loginID);
+        login.setLoginName(param.getString("username"));
+        login.setLoginPass(MD5Utils.getMD5(param.getString("userpass")));
+        login.setStatus("1");
+
+        loginResponsitory.save(login);
+
+
+        modelMap.put("login", login);
+        System.out.println("Test--------15:56--->:"+loginID+param);
+        return "/index";
     }
 
     @RequestMapping("/delete")
@@ -80,9 +107,42 @@ public class MemberController extends BaseController{
     }
 
     @GetMapping("/findAll")
-    public List<MemberEntity> findAll(){
+    public @ResponseBody
+    List<MemberEntity> findAll(){
         return memberResponsitory.findAll();
     }
 
+
+    @RequestMapping("/login" )
+    public String login(ModelMap modelMap, HttpServletRequest request,LoginEntity loginEntity){
+        //modelMap = new ModelMap();
+        JSONObject param = ParamUtils.getParamObjectWithFormData(request);
+        //System.out.println("Test--------22:23--->:"+param+loginEntity);
+        String loginName= param.get("username").toString();
+        String loginPass=MD5Utils.getMD5(param.get("userpass").toString());
+
+        loginEntity.setLoginName(loginName);
+        List<LoginEntity> loginUsers= loginResponsitory.findByLoginName(loginName);
+        modelMap.put("status","0");
+        if(loginUsers.isEmpty()){
+            modelMap.put("info", "用户不存在");
+        }else{
+            if(loginPass.equals(loginUsers.get(0).getLoginPass())){
+                modelMap.put("status","1");
+                modelMap.put("info", "登录成功");
+                modelMap.put("managerId","0");
+                modelMap.put("login", loginEntity);
+
+                return "/index";
+            }else{
+                modelMap.put("info", "密码错误");
+            }
+
+        }
+
+
+        //System.out.println("Test--------23:09--->:"+JSONUtil.toJson(modelMap));
+        return "/login";
+    }
 
 }

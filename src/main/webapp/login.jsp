@@ -8,10 +8,10 @@
     <link rel="icon" href="./images/pande.png">
     <title>Login</title>
 </head>
-     <link href="css/login.css" type="text/css" rel="stylesheet" />
+     <link href="/css/login.css" type="text/css" rel="stylesheet" />
 	<!-- js files -->
-	<script src="js/login.js"></script>
-<script src="js/jquery.min.js"></script>
+	<script src="/js/login.js"></script>
+<script src="/js/jquery.min.js"></script>
 
 	<!-- /js files -->
 </head>
@@ -20,7 +20,7 @@
         <div class="container">
             <h1>欢迎</h1>
             <%--<c:if test="${param.error =='uname' }"><font color=red >用户名密码错误</font></c:if>--%>
-            <form name="myform" action="Login" method="post">
+            <form id="myform" name="myform" action="/member/login" method="post">
             	<%if(request.getAttribute("return_uri")!=null) {%>
 				<input type="hidden" name="return_uri" value="<%=request.getAttribute("return_uri") %>"/>
 				<%} %>

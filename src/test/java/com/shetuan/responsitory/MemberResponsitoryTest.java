@@ -20,6 +20,8 @@ public class MemberResponsitoryTest {
 
     @Autowired
     private MemberResponsitory memberResponsitory;
+    @Autowired
+    private LoginResponsitory loginResponsitory;
     @Test
     void findAll(){
         MemberEntity memberEntity = new MemberEntity();
@@ -29,5 +31,6 @@ public class MemberResponsitoryTest {
         memberResponsitory.saveAndFlush(memberEntity);
         //memberResponsitory.
         System.out.println("Test--------19:09--->:"+memberResponsitory.findAll());
+
     }
 }
