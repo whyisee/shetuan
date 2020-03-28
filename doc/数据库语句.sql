@@ -13,6 +13,7 @@ PRIMARY KEY (seq_name)   );
 INSERT INTO sequence VALUES ('seq_test1_num1', '0', '1');
 INSERT INTO sequence VALUES ('seq_test1_num2', '100000', '2');
 INSERT INTO sequence VALUES ('seq_user_id', '100000', '1');
+INSERT INTO sequence VALUES ('seq_comm_id', '100000', '1');
 
 create function currval(v_seq_name VARCHAR(50))
 returns integer(11)
@@ -78,6 +79,34 @@ PRIMARY KEY (role_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+-- 社团表
+ CREATE TABLE if not exists tc_comm_community (
+comm_id	varchar(20)                   not NULL,
+comm_name	varchar(200)              DEFAULT NULL,
+create_persion_id	varchar(20)       DEFAULT NULL,
+create_persion_name	varchar(200)      DEFAULT NULL,
+boss_id	varchar(20)                   DEFAULT NULL,
+boss_name	varchar(200)              DEFAULT NULL,
+create_date	varchar(20)               DEFAULT NULL,
+comm_people_num	varchar(20)           DEFAULT NULL,
+comm_class_id	varchar(20)           DEFAULT NULL,
+comm_info	varchar(500)              DEFAULT NULL,
+comm_pic	varchar(200)              DEFAULT NULL,
+comm_special_act	varchar(500)      DEFAULT NULL,
+status	varchar(2)                    not NULL DEFAULT '1',
+PRIMARY KEY (comm_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ CREATE TABLE if not exists tc_comm_community (
+comm_class_id	varchar(20)                       not NULL,
+comm_class_name	varchar(200)                      DEFAULT NULL,
+update_persion_id	varchar(20)                   DEFAULT NULL,
+update_date	varchar(20)                           DEFAULT NULL,
+remark	varchar(200)                              DEFAULT NULL,
+status	varchar(2)                                DEFAULT NULL,
+PRIMARY KEY (comm_class_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `activity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -94,69 +123,17 @@ CREATE TABLE `activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `activity`
---
 
-LOCK TABLES `activity` WRITE;
-/*!40000 ALTER TABLE `activity` DISABLE KEYS */;
-/*!40000 ALTER TABLE `activity` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `community`
---
-
-DROP TABLE IF EXISTS `community`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `community` (
-  `community_id` varchar(100) DEFAULT NULL,
-  `community_name` varchar(100) DEFAULT NULL,
-  `community_createrid` varchar(100) DEFAULT NULL,
-  `community_creatername` varchar(100) DEFAULT NULL,
-  `community_createdate` varchar(100) DEFAULT NULL,
-  `community_num` varchar(100) DEFAULT NULL,
-  `community_range` varchar(100) DEFAULT NULL,
-  `community_classid` varchar(100) DEFAULT NULL,
-  `community_classname` varchar(100) DEFAULT NULL,
-  `community_create` varchar(100) DEFAULT NULL,
-  `community_info` varchar(100) DEFAULT NULL
+CREATE  TABLE if not exists tc_comm_class (
+        comm_class_id	varchar(20)                       not NULL,
+        comm_class_name	varchar(200)                      DEFAULT NULL,
+        update_persion_id	varchar(20)                   DEFAULT NULL,
+        update_date	varchar(20)                           DEFAULT NULL,
+        remark	varchar(200)                              DEFAULT NULL,
+        show_order_no int                  DEFAULT 0,
+        status	varchar(2)                                DEFAULT NULL,
+        PRIMARY KEY (comm_class_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `community`
---
-
-LOCK TABLES `community` WRITE;
-/*!40000 ALTER TABLE `community` DISABLE KEYS */;
-/*!40000 ALTER TABLE `community` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `communityclass`
---
-
-DROP TABLE IF EXISTS `communityclass`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `communityclass` (
-  `class_id` varchar(100) DEFAULT NULL,
-  `community_id` varchar(100) DEFAULT NULL,
-  `class_name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `communityclass`
---
-
-LOCK TABLES `communityclass` WRITE;
-/*!40000 ALTER TABLE `communityclass` DISABLE KEYS */;
-/*!40000 ALTER TABLE `communityclass` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `login`
 --
