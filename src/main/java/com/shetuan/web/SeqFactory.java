@@ -11,4 +11,6 @@ package com.shetuan.web;
  */
 public class SeqFactory {
     public static String SEQ_LOGIN_ID="SELECT NEXTVAL('seq_user_id');";
+    public static String SEQ_COMM_ID="SELECT NEXTVAL('seq_comm_id');";
+
 }

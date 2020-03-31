@@ -1,6 +1,7 @@
 package com.shetuan.web;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.shetuan.entity.LoginEntity;
 import com.shetuan.entity.MemberEntity;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * use for :
@@ -80,6 +82,7 @@ public class MemberController extends BaseController{
         login.setStatus("1");
 
         loginResponsitory.save(login);
+        loginResponsitory.saveAcctRole(loginID,param.getString("username"),"1");
 
 
         modelMap.put("login", login);
@@ -129,8 +132,8 @@ public class MemberController extends BaseController{
         }else{
             if(loginPass.equals(loginUsers.get(0).getLoginPass())){
                 modelMap.put("status","1");
-                modelMap.put("info", "登录成功");
-                modelMap.put("managerId","0");
+                modelMap.put("info", "OK");
+                modelMap.put("roleId",loginResponsitory.getRoleIdbyLoginName(loginName));
                 modelMap.put("login", loginEntity);
 
                 return "/index";
@@ -140,9 +143,47 @@ public class MemberController extends BaseController{
 
         }
 
-
+        //JSONArray jsonObject = JSONArray.toJSON("");
         //System.out.println("Test--------23:09--->:"+JSONUtil.toJson(modelMap));
         return "/login";
+    }
+
+    @RequestMapping("/update" )
+    public @ResponseBody String update(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
+        //JSONObject param = ParamUtils.getParamObjectWithFormData(request);
+       // MemberEntity member= JSON.parseObject(param.toString(), MemberEntity.class);
+        memberEntity.setIsAddInfo("1");
+        return JSONObject.toJSON(memberResponsitory.save(memberEntity)).toString();
+    }
+
+    @RequestMapping("/updatePWD" )
+    public @ResponseBody String updatePWD(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object>  loginEntity){
+        String loginName=loginEntity.get("loginName").toString();
+        String passwdOld=loginEntity.get("passwdOld").toString();
+        String passwdNew=loginEntity.get("passwdNew").toString();
+        LoginEntity loginUsers= loginResponsitory.findByLoginName(loginName).get(0);
+        ModelMap modelMap1=new ModelMap();
+
+        if(!loginUsers.getLoginPass().equals(MD5Utils.getMD5(passwdOld))){
+            modelMap1.put("status","0");
+            modelMap1.put("info","原密码错误");
+        }else{
+            loginUsers.setLoginPass(MD5Utils.getMD5(passwdNew));
+            loginResponsitory.save(loginUsers);
+            modelMap1.put("status","1");
+            modelMap1.put("info","OK");
+        }
+
+
+
+
+        return JSONObject.toJSON(modelMap1).toString();
+    }
+
+    @RequestMapping("/getInfo")
+    public @ResponseBody
+    List<MemberEntity> getInfo(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
+        return memberResponsitory.findByLoginName(memberEntity.getLoginName());
     }
 
 }

@@ -22,6 +22,8 @@ class LoginResponsitoryTest {
     @Test
     public void getByLoginName(){
         loginResponsitory.findByLoginName("");
+        //loginResponsitory.saveAcctRole("11","11","1");
+        System.out.println("Test--------18:15--->:"+loginResponsitory.getRoleIdbyLoginName("11"));
         System.out.println("Test--------22:05--->:"+loginResponsitory.getByLoginName("333"));
 
     }
