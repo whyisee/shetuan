@@ -26,31 +26,39 @@ function check(form) {
             changeImg();
             return false;
         } else{
-            var username=	$("#username").val();
-            var userpass=	$("#userpass").val();
-            var user={loginName:username,loginPass:userpass};
+            $("#myform").submit();
+            return false;
+            /*    var username=	$("#username").val();
+                var userpass=	$("#userpass").val();
+                var user={loginName:username,loginPass:userpass};
+                //$('#myform').serialize(),
+                $.ajax({
+                        url:"/member/login",
+                        contentType: 'application/json;charset=UTF-8',
+                        type:"post",
+                        data:JSON.stringify(user),
+                        //返回数据的格式
+                        datatype: "json",
+                        success:function(result){
+                            //alert(result);
+                            console.log(result)
+                            result=JSON.parse(result)
+                            if(null!=result) {
+                                console.log(result.status+result.managerId)
 
-            $.ajax({
-                    url:"Login",
-                    contentType: 'application/json;charset=UTF-8',
-                    type:"post",
-                    data:JSON.stringify(user),
-                    //返回数据的格式
-                    datatype: "json",
-                    success:function(result){
-                        //alert(result);
-                        //console.log(result)
-                        if(null!=result) {
-                            changeImg();
-                            if (result.loginId == "0" && result.managerId == "1") {
-                                window.location.href = "admin";
+                                changeImg();
+                                if (result.status == "1" && result.managerId == "1") {
+                                    window.location.href = "admin";
+                                }
+                                if (result.status == "1" && result.managerId == "0") {
+                                    window.location.href = "/index.jsp";
+                                }
                             }
+                        },
+                        error:function(){
                         }
-                    },
-                    error:function(){
                     }
-                }
-            )
+                )*/
         }
     });
 

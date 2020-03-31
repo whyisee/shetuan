@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="pande.png">
     <title>社团管理</title>
-    <script src="js/regist.js"></script>
-    <script src="js/md5.js"></script>
-    <script src="js/jquery.min.js"></script>
+    <script src="/js/regist.js"></script>
+    <script src="/js/md5.js"></script>
+    <script src="/js/jquery.min.js"></script>
 
-    <link href="css/regist.css" type="text/css" rel="stylesheet" />
+    <link href="/css/regist.css" type="text/css" rel="stylesheet" />
 
 </head>
 

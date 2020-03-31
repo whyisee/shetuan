@@ -20,7 +20,7 @@
         .container {
             text-align: center;
             width: 60%;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 10% auto;
         }
         .container h1 {
@@ -38,7 +38,7 @@
             outline: 0;
             padding: 6px 10px;
             line-height: 24px;
-            margin: 32px auto;
+            margin: 22px auto;
             -webkit-transition: all 0s ease-in 0.1ms;
             -moz-transition: all 0s ease-in 0.1ms;
             transition: all 0s ease-in 0.1ms;

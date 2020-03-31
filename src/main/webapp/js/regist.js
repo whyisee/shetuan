@@ -35,7 +35,7 @@ function registCheck(form) {
             changeImg();
             return false;
         }else{
-            $("#md5password").attr("value",hex_md5($("#password").val()));
+          //  $("#md5password").attr("value",hex_md5($("#password").val()));
             $("#myfor").submit();
 
             return false;

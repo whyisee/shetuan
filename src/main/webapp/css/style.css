@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 body{
 	padding:0;
 	margin:0;
-	background:#FFF;
+	/*background:#FFF;*/
 }
 body a{
     transition:0.5s all;
@@ -185,7 +185,7 @@ section.top-bar ul.social-icons1 li a i.fa.fa-google-plus:hover {
 .nav>li>a {
 	font-size:20px;
 	font-weight:300;
-	padding:10px 45px;
+	padding:10px 40px;
 	line-height:30px;
 	color:#fff!important;
 }
@@ -308,7 +308,7 @@ section.top-bar ul.social-icons1 li a i.fa.fa-google-plus:hover {
   }
   .navbar-wrapper .container {
     padding-right: 15px;
-    padding-left: 15px;
+    padding-left: 21px;
   }
   .navbar-wrapper .navbar {
     padding-right: 0;
@@ -384,7 +384,7 @@ section.about-us h3.text-center {
 }
 section.about-us h3.text-center,section.our-services h3.text-center,section.our-info h3.text-center,section.our-gallery  h3.text-center,section.our-blog h3.text-center,section.curriculum h3.text-center,section.our-contacts h3.text-center   {
 	font-size:40px;
-	padding:20px 0;
+	padding:60px 0;
 	font-weight:500;
 	font-family: 'Viga', sans-serif;
 	    color: #222;
@@ -415,7 +415,7 @@ section#about{
 	-webkit-background-size:100% 100%;
 	-moz-background-size: 100% 100%;
 	-o-background-size: 100% 100%;
-	padding:100px 0;
+	padding:30px 0;
 }
 section#services{
 	background:url(../images/back2.jpg) no-repeat;
@@ -425,7 +425,7 @@ section#services{
 	-webkit-background-size:100% 100%;
 	-moz-background-size: 100% 100%;
 	-o-background-size: 100% 100%;
-	padding:100px 0;
+	padding:30px 0;
 }
 section#gallery{
 	background:url(../images/backc5.jpg) no-repeat;
@@ -435,7 +435,7 @@ section#gallery{
 	-webkit-background-size:100% 100%;
 	-moz-background-size: 100% 100%;
 	-o-background-size: 100% 100%;
-	padding:100px 0;
+	padding:30px 0;
 }
 section#curriculum{
 	background:url(../images/back3.jpg) no-repeat;
@@ -445,7 +445,7 @@ section#curriculum{
 	-webkit-background-size:100% 100%;
 	-moz-background-size: 100% 100%;
 	-o-background-size: 100% 100%;
-	padding:100px 0;
+	padding:30px 0;
 }
 section#contact{
 	background:url(../images/back5.jpg) no-repeat;
@@ -455,7 +455,7 @@ section#contact{
 	-webkit-background-size:100% 100%;
 	-moz-background-size: 100% 100%;
 	-o-background-size: 100% 100%;
-	padding:100px 0;
+	padding:30px 0;
 }
 section#notice{
 	background:url(../images/back1.jpg) no-repeat;
@@ -465,7 +465,7 @@ section#notice{
 	-webkit-background-size:100% 100%;
 	-moz-background-size: 100% 100%;
 	-o-background-size: 100% 100%;
-	padding:100px 0;
+	padding:30px 0;
 }
 
 /*--background-images--*/
@@ -502,6 +502,9 @@ section.our-services .serv-info p {
     font-weight: 400;
     line-height: 29px;
 	color: #DAD8D8;
+}
+section.our-services .serv-info p span{
+	color: #46b8da;
 }
 /*-- /Our Services --*/
 /*-- Our Information --*/
@@ -853,6 +856,13 @@ section.footer .footer-right ul.social-icons2 li a i.fa.fa-google-plus:hover {
 /*-- /Footer --*/
 /*-- slide animations --*/
 .slideanim {visibility:hidden;}
+.slideanim p a{
+	color: #53e3a6;
+	text-decoration: none;
+}
+.slideanim p a:hover{
+	color: #B76060;
+}
 .slide {
     /* The name of the animation */
     animation-name: slide;
@@ -1413,6 +1423,7 @@ section.footer .footer-left .contact-info {
 .footer-center {
     padding-bottom: 0px;
 }
+
 section.about-us .about-details {
     padding-bottom: 0px;
 }
