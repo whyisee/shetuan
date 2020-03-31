@@ -24,6 +24,7 @@ class CommunityResponsitoryTest {
 
     @Test
     public void test(){
+        //System.out.println("Test--------19:22--->:"+communityResponsitory.findA("classId = ?","11").fetch());
         System.out.println("Test--------22:27--->:"+communityResponsitory.getIndexCommunity());
         System.out.println("Test--------23:46--->:"+communityClassResponsitory.getIndexCommunityClass());
 

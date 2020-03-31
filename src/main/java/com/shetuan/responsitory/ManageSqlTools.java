@@ -1,5 +1,8 @@
 package com.shetuan.responsitory;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -14,7 +17,11 @@ import java.util.List;
  * @Modified By:
  * @used in: community-management-system
  */
+@Transactional
 public class ManageSqlTools {
+    @Autowired
+    private MemberResponsitory memberResponsitory;
+    
     @PersistenceContext
     private EntityManager entityManager;
     

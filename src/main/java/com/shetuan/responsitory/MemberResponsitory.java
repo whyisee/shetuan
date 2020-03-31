@@ -1,7 +1,10 @@
 package com.shetuan.responsitory;
 
+import com.shetuan.entity.LoginEntity;
 import com.shetuan.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * use for :
@@ -13,6 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @used in: community-management-system
  */
 public interface MemberResponsitory extends JpaRepository<MemberEntity,String> {
+    List<MemberEntity> findByLoginName(String LoginName);
 
 
 }

@@ -23,8 +23,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ManageSqlToolsTest {
     //@Autowired
     //private ManageSqlTools manageSqlTools;
+    @Autowired
+    private MemberResponsitory memberResponsitory;
     @PersistenceContext
     private EntityManager entityManager;
+
     @Test
     public void ztest(){
         ManageSqlTools manageSqlTools= new ManageSqlTools();
