@@ -39,8 +39,6 @@ import java.util.Map;
 @RequestMapping(value="/member")
 public class MemberController extends BaseController{
 
-    //@Autowired
-    //MemberMapper memberMapper;
 
     @Autowired
     MemberResponsitory memberResponsitory;
@@ -184,6 +182,12 @@ public class MemberController extends BaseController{
     public @ResponseBody
     List<MemberEntity> getInfo(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
         return memberResponsitory.findByLoginName(memberEntity.getLoginName());
+    }
+
+
+    public void test(){
+        String loginID=entityManager.createNativeQuery(SeqFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
+        System.out.println("Test--------11:58--->:"+loginID);
     }
 
 }
