@@ -1,15 +1,12 @@
 package com.shetuan.web;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.shetuan.entity.LoginEntity;
 import com.shetuan.entity.MemberEntity;
-import com.shetuan.mapper.MemberMapper;
 import com.shetuan.responsitory.LoginResponsitory;
-import com.shetuan.responsitory.ManageSqlTools;
 import com.shetuan.responsitory.MemberResponsitory;
-import com.shetuan.util.JSONUtil;
+import com.shetuan.responsitory.SeqFactory;
 import com.shetuan.util.MD5Utils;
 import com.shetuan.util.ParamUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,13 +12,13 @@ import com.shetuan.util.Page;
 
 /**
  * 成员的增删改查
- * 
+ *
  * @author Administrator
  */
 public class MemberDao extends BaseDao {
 	/**
 	 * 获取成员列表
-	 * 
+	 *
 	 * @param page
 	 * @return
 	 */

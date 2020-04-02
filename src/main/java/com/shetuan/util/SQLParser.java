@@ -18,9 +18,9 @@ import java.util.regex.Pattern;
  */
 public class SQLParser {
     private StringBuffer sqlstr = new StringBuffer();
-    private HashMap<String,String> param;
+    private HashMap<String,Object> param;
 
-    public SQLParser(HashMap<String,String> param) throws Exception {
+    public SQLParser(HashMap<String,Object> param) throws Exception {
         this.param = param;
     }
 
@@ -109,7 +109,7 @@ public class SQLParser {
         return this.sqlstr.toString();
     }
 
-    public HashMap<String,String> getParam() throws Exception {
+    public HashMap<String,Object> getParam() throws Exception {
         return this.param;
     }
 

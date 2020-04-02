@@ -21,7 +21,7 @@ class SQLParserTest {
     @Test
     void getSQL() throws Exception {
 
-        HashMap<String,String> param=new HashMap<String,String>();
+        HashMap<String,Object> param=new HashMap<String,Object>();
         param.put("a","11");
         SQLParser sqlParser = new SQLParser(param);
         sqlParser.addSQL("select * from test ");

@@ -1,4 +1,4 @@
-package com.shetuan.web;
+package com.shetuan.responsitory;
 
 /**
  * use for :
