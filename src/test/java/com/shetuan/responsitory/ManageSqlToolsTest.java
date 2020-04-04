@@ -54,7 +54,7 @@ public class ManageSqlToolsTest {
 
         Page page =new Page();
         page.setPageCurrent(2);
-        List loginEntity= manageSqlTools.queryList(sqlParser.getSQL(),param,LoginEntity.class,page);
+        List loginEntity= manageSqlTools.queryList(sqlParser,param,LoginEntity.class,page);
 
         //Query query=entityManager.createNativeQuery("select nextval('seq_test1_num2') aaa;");
 

@@ -1,9 +1,6 @@
 package com.shetuan.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,9 +15,9 @@ import java.util.regex.Pattern;
  */
 public class SQLParser {
     private StringBuffer sqlstr = new StringBuffer();
-    private HashMap<String,Object> param;
+    private Map<String,Object> param;
 
-    public SQLParser(HashMap<String,Object> param) throws Exception {
+    public SQLParser(Map<String,Object> param) throws Exception {
         this.param = param;
     }
 
@@ -109,7 +106,7 @@ public class SQLParser {
         return this.sqlstr.toString();
     }
 
-    public HashMap<String,Object> getParam() throws Exception {
+    public Map<String,Object> getParam() throws Exception {
         return this.param;
     }
 

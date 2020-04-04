@@ -6,7 +6,7 @@ import com.shetuan.entity.LoginEntity;
 import com.shetuan.entity.MemberEntity;
 import com.shetuan.responsitory.LoginResponsitory;
 import com.shetuan.responsitory.MemberResponsitory;
-import com.shetuan.responsitory.SeqFactory;
+import com.shetuan.responsitory.ConfigFactory;
 import com.shetuan.util.MD5Utils;
 import com.shetuan.util.ParamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,7 @@ public class MemberController extends BaseController{
     注册接口
     */
     @RequestMapping("/regist")
-    public String registMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity){
+    public String registMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity,HttpSession session){
         JSONObject param = ParamUtils.getParamObjectWithFormData(request);
 
         MemberEntity member= JSON.parseObject(param.toString(), MemberEntity.class);
@@ -59,7 +60,7 @@ public class MemberController extends BaseController{
         String dateNowStr = sdf.format(d);
 
         //获取用户id
-        String loginID=entityManager.createNativeQuery(SeqFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
+        String loginID=entityManager.createNativeQuery(ConfigFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
 
         //设置member表信息,保存
         member.setLoginId(loginID);
@@ -81,7 +82,9 @@ public class MemberController extends BaseController{
 
 
         modelMap.put("login", login);
-        System.out.println("Test--------15:56--->:"+loginID+param);
+        session.setAttribute("login",login);
+
+        //System.out.println("Test--------15:56--->:"+loginID+param);
         return "/index";
     }
 
@@ -112,7 +115,7 @@ public class MemberController extends BaseController{
 
 
     @RequestMapping("/login" )
-    public String login(ModelMap modelMap, HttpServletRequest request,LoginEntity loginEntity){
+    public String login(ModelMap modelMap, HttpServletRequest request, LoginEntity loginEntity, HttpSession session){
         //modelMap = new ModelMap();
         JSONObject param = ParamUtils.getParamObjectWithFormData(request);
         //System.out.println("Test--------22:23--->:"+param+loginEntity);
@@ -130,7 +133,7 @@ public class MemberController extends BaseController{
                 modelMap.put("info", "OK");
                 modelMap.put("roleId",loginResponsitory.getRoleIdbyLoginName(loginName));
                 modelMap.put("login", loginEntity);
-
+                session.setAttribute("login",loginEntity);
                 return "/index";
             }else{
                 modelMap.put("info", "密码错误");
@@ -183,7 +186,7 @@ public class MemberController extends BaseController{
 
 
     public void test(){
-        String loginID=entityManager.createNativeQuery(SeqFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
+        String loginID=entityManager.createNativeQuery(ConfigFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
         System.out.println("Test--------11:58--->:"+loginID);
     }
 

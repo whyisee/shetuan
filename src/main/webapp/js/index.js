@@ -61,12 +61,12 @@ function testinterface(){
     var testdata={loginId:"555",loginName:"333",userName:"test",studentId:"123123",
         sex:"男",inDate:"2019",college:"计算机",specially:"软件",
         phone:"123456",address:"1#23",email:"9070@qq.com",
-        passwdOld:"333",passwdNew:"123"
+        passwdOld:"333",passwdNew:"123",commId:"100031"
     }
     var testdata2=JSON.stringify(testdata);
     console.log(testdata2)
     $.ajax({
-        url:"/member/updatePWD", //请求的url地址
+        url:"/community/commInfo", //请求的url地址
         contentType: 'application/json;charset=UTF-8',
         dataType:"json", //返回格式为json
         async:true,//请求是否异步，默认为异步，这也是ajax重要特性

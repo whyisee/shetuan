@@ -1,17 +1,16 @@
 package com.shetuan.responsitory;
 
 import com.shetuan.util.Page;
+import com.shetuan.util.SQLParser;
 import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,8 +37,7 @@ public class ManageSqlTools  {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private String sql;
-    private String[] names;
+
 
 
     //获取条件参数
@@ -48,7 +46,7 @@ public class ManageSqlTools  {
         Pattern patQuote = Pattern.compile("('[^']*')");
         List quoteRanges = new ArrayList();
         Matcher matcher = patQuote.matcher(sqlstr);
-
+        String [] names;
         class QuoteRange {
             int start;
             int length;
@@ -103,15 +101,15 @@ public class ManageSqlTools  {
         }
     }
 
-    public List queryList(String sql, HashMap<String,Object> param,Page page) throws Exception {
+    public List queryList(SQLParser sql, HashMap<String,Object> param,Page page) throws Exception {
         return this.queryList(sql,param,null,page);
     }
 
-    public List queryList(String sql, HashMap<String,Object> param) throws Exception {
+    public List queryList(SQLParser sql, HashMap<String,Object> param) throws Exception {
         return this.queryList(sql,param,null,null);
     }
 
-    public List queryList(String sql, HashMap<String,Object> param,Class clazz) throws Exception {
+    public List queryList(SQLParser sql, HashMap<String,Object> param,Class clazz) throws Exception {
         return this.queryList(sql,param,clazz,null);
     }
 
@@ -123,9 +121,11 @@ public class ManageSqlTools  {
      *@version 1.0
      *@used in: ManageSqlTools
      */
-    public List queryList(String sql, HashMap<String,Object> param, Class clazz, Page page) throws Exception {
+    public List queryList(SQLParser sqlparser, Map<String,Object> param, Class clazz, Page page) throws Exception {
         List rs;
         Query query;
+
+        String sql=sqlparser.getSQL();
         String[] names=preprocStatement(sql);
         //是否实体化
         if(null!=clazz) {
@@ -142,7 +142,7 @@ public class ManageSqlTools  {
         }
         //是否分页
         if(null!=page) {
-            rs=query.getResultList();
+            rs=queryList(sqlparser,param,clazz,null);
             page.setItemCont(rs.size());
             query.setFirstResult(page.getItemStart());
             query.setMaxResults(page.getItemEnd());
@@ -153,7 +153,7 @@ public class ManageSqlTools  {
     }
 
     public void test(){
-        String loginID=entityManager.createNativeQuery(SeqFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
+        String loginID=entityManager.createNativeQuery(ConfigFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
         System.out.println("Test--------11:58--->:"+loginID);
     }
 
