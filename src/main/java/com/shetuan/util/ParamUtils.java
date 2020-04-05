@@ -1,6 +1,7 @@
 package com.shetuan.util;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.cglib.beans.BeanMap;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -32,5 +33,10 @@ public class ParamUtils {
         }
 
         return jsonObject;
+    }
+    public static <T> T mapToBean(Map<String, Object> map,T bean){
+        BeanMap beanMap=BeanMap.create(bean);
+        beanMap.putAll(map);
+        return bean;
     }
 }
