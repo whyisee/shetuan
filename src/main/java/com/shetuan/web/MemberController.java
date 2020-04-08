@@ -7,16 +7,20 @@ import com.shetuan.entity.MemberEntity;
 import com.shetuan.responsitory.LoginResponsitory;
 import com.shetuan.responsitory.MemberResponsitory;
 import com.shetuan.responsitory.ConfigFactory;
+import com.shetuan.service.MemberService;
 import com.shetuan.util.MD5Utils;
 import com.shetuan.util.ParamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,14 +47,19 @@ public class MemberController extends BaseController{
     @Autowired
     private LoginResponsitory loginResponsitory;
 
+    @Autowired
+    private MemberService memberService;
+
     @PersistenceContext
     private EntityManager entityManager;
+
+
 
     /*
     注册接口
     */
     @RequestMapping("/regist")
-    public String registMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity,HttpSession session){
+    public String registMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity,HttpSession session) throws Exception {
         JSONObject param = ParamUtils.getParamObjectWithFormData(request);
 
         MemberEntity member= JSON.parseObject(param.toString(), MemberEntity.class);
@@ -78,13 +87,15 @@ public class MemberController extends BaseController{
         login.setStatus("1");
 
         loginResponsitory.save(login);
-        loginResponsitory.saveAcctRole(loginID,param.getString("username"),"1");
+        loginResponsitory.saveAcctRole(loginID,param.getString("username"),ConfigFactory.ROLE_CODE_PERSION);
 
 
         modelMap.put("login", login);
         session.setAttribute("login",login);
+        //设置权限信息
+        List funcright=memberService.getShowLinkByRoleName(ConfigFactory.ROLE_CODE_PERSION);
+        session.setAttribute("funcright",funcright);
 
-        //System.out.println("Test--------15:56--->:"+loginID+param);
         return "/index";
     }
 
@@ -103,7 +114,6 @@ public class MemberController extends BaseController{
         member.setIsAddInfo("0");
         memberResponsitory.deleteById(param.get("loginId").toString());
         modelMap.put("columnInfo", "");
-        System.out.println("Test--------15:56--->:"+param);
         return "/index.jsp";
     }
 
@@ -115,10 +125,8 @@ public class MemberController extends BaseController{
 
 
     @RequestMapping("/login" )
-    public String login(ModelMap modelMap, HttpServletRequest request, LoginEntity loginEntity, HttpSession session){
-        //modelMap = new ModelMap();
+    public String login(ModelMap modelMap, HttpServletRequest request, LoginEntity loginEntity, HttpSession session, HttpServletResponse response) throws Exception {
         JSONObject param = ParamUtils.getParamObjectWithFormData(request);
-        //System.out.println("Test--------22:23--->:"+param+loginEntity);
         String loginName= param.get("username").toString();
         String loginPass=MD5Utils.getMD5(param.get("userpass").toString());
 
@@ -129,20 +137,29 @@ public class MemberController extends BaseController{
             modelMap.put("info", "用户不存在");
         }else{
             if(loginPass.equals(loginUsers.get(0).getLoginPass())){
+                String roleId=loginResponsitory.getRoleIdbyLoginName(loginName);
                 modelMap.put("status","1");
                 modelMap.put("info", "OK");
-                modelMap.put("roleId",loginResponsitory.getRoleIdbyLoginName(loginName));
+                modelMap.put("roleId",roleId);
                 modelMap.put("login", loginEntity);
+                //设置用户信息
                 session.setAttribute("login",loginEntity);
-                return "/index";
+                //设置权限信息
+                List funcright= memberService.getShowLinkByRoleName(roleId);
+                session.setAttribute("funcright",funcright);
+                session.getId();
+
+                Cookie cookie=new Cookie("name",loginEntity.getLoginName());
+                cookie.setMaxAge(60 * 60 * 24 * 7);
+                response.addCookie(cookie);
+                //DefaultSingletonBeanRegistry;
+                return "/index2";
             }else{
                 modelMap.put("info", "密码错误");
             }
 
         }
 
-        //JSONArray jsonObject = JSONArray.toJSON("");
-        //System.out.println("Test--------23:09--->:"+JSONUtil.toJson(modelMap));
         return "/login";
     }
 
@@ -183,11 +200,20 @@ public class MemberController extends BaseController{
     List<MemberEntity> getInfo(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
         return memberResponsitory.findByLoginName(memberEntity.getLoginName());
     }
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("login");
+        session.removeAttribute("funcright");
+
+
+        return "/index";
+    }
 
 
     public void test(){
         String loginID=entityManager.createNativeQuery(ConfigFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
         System.out.println("Test--------11:58--->:"+loginID);
     }
+
 
 }

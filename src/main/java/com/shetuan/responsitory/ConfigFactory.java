@@ -20,6 +20,8 @@ public class ConfigFactory {
     public static String ROLE_CODE_ADMIN="100";
     public static String ROLE_CODE_COMM_ADMIN="200";
 
+    public static String ROLE_CODE_PERSION="500";
+
 
     //社团成员职位--最低展示
     public static String COMM_WORKER_ID="100";

@@ -1,5 +1,3 @@
-
-
 var example1 = new Vue({
     el: '#comm-list',
     data: {
@@ -8,28 +6,43 @@ var example1 = new Vue({
         ]
     }
 })
-// 定义一个名为 button-counter 的新组件
-Vue.component('button-counter', {
-    props: ['item'],
-    template: '<div><div><h3>{{ item.commClassName }}<h3></div>'+
-        '<div>' +
-        '理事长:' +'{{ item.commClassName }}'+
-        '<div>'+
+
+
+// 定义一个名为 comm-info 的新组件
+Vue.component('comm-info', {
+    props: ['item','communitys'],
+    template: '<div><div><h2>{{ item.commClassName }}<h2></div>'+
+        '    <div v-for="item in communitys">' +
+        '        <h3>{{ item.commName }} <a>申请加入</a></h3>' +
+        '        <p>理事长: {{ item.bossName }}</p>' +
+        '        <p>简介: {{ item.commInfo }}</p>' +
+        '        <p>特色活动: {{ item.commSpecialAct }}</p>' +
+        '    </div> <p>000</p>' +
         '<div>'
     //  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
 
 })
 
 var example2= new Vue({
-    el: '#components-demo',
+    el: '#comm-info',
     data: {
         items: [
-            { commClassId: 0, commClassName: '科技创新' },
+            {   commClassId: 0,
+                commClassName: '科技创新',
+                communitys:[
+                    {
+                    commName: '网络协会',
+                    bossName: '张三',
+                    commInfo:'123',
+                    commSpecialAct:'特色活动'
+                }
+            ]
+            },
         ]
     }
 })
 
-
+init();
 
 function init(){
 

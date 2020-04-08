@@ -177,3 +177,22 @@ login_id	varchar(20)
 ,status	varchar(2)
 ,PRIMARY KEY (login_id,activity_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--权限控制
+CREATE TABLE if not exists td_b_rolefuncright (
+role_code	varchar(20)
+,role_name	varchar(20)
+,update_persion_id	varchar(20)
+,update_persion_name	varchar(20)
+,update_date	varchar(20)
+,menu_id	varchar(20)
+,menu_name	varchar(100)
+,menu_link	varchar(100)
+,menu_des	varchar(500)
+,menu_level varchar(20)
+,parent_menu_id varchar(20)
+,show_order int
+,remark	varchar(500)
+,status	varchar(2)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

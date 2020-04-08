@@ -11,3 +11,7 @@ spring:
         format_sql: true
 server:
   port: 8181
+  servlet:
+    session:
+      cookie:
+        max-age: 86400
