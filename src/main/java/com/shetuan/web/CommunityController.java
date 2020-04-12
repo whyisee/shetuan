@@ -7,16 +7,16 @@ import com.shetuan.entity.*;
 import com.shetuan.responsitory.*;
 import com.shetuan.service.CommunityService;
 import com.shetuan.util.JSONUtil;
+import com.shetuan.util.Page;
 import com.shetuan.util.ParamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -73,12 +73,10 @@ public class CommunityController extends BaseController {
                     }
                 }
                 jsonObject.put("communitys",jsonArray2);
-                System.out.println("Test--------0:26--->:"+jsonArray2);
 
                 jsonArray.add(jsonObject);
             }
         }
-        //System.out.println("Test--------0:03--->:"+jsonArray);
         return jsonArray.toJSONString();
     }
 
@@ -89,10 +87,25 @@ public class CommunityController extends BaseController {
      *@version 1.0
      *@used in: CommunityController
      */
-    @RequestMapping("/findAll")
+    @RequestMapping(value="/findAll",method = {RequestMethod.GET})
+    public @ResponseBody
+    List<CommunityEntity> findAllForGet(ModelMap modelMap, HttpServletRequest request, @RequestParam Map<String,Object> params) throws Exception {
+        Page page=null;
+        //get请求不支持分页
+        if(null!=params.get("page")){
+            page=JSONUtil.toBean((JSONObject.toJSONString(params.get("page"))), Page.class);
+        }
+        return communityService.findAllMoreCondition(params,page);
+    }
+
+    @RequestMapping(value="/findAll",method = {RequestMethod.POST})
     public @ResponseBody
     List<CommunityEntity> findAll(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object> params) throws Exception {
-        return communityService.findAllMoreCondition(params,null);
+        Page page=null;
+        if(null!=params.get("page")){
+            page=JSONUtil.toBean((JSONObject.toJSONString(params.get("page"))), Page.class);
+        }
+        return communityService.findAllMoreCondition(params,page);
     }
 
     /**
@@ -103,11 +116,25 @@ public class CommunityController extends BaseController {
      *@version 1.0
      *@used in: CommunityController
      */
-    @RequestMapping("/findMemberShow")
+    @RequestMapping(value="/findMemberShow",method = {RequestMethod.GET})
+    public @ResponseBody
+    List findMemberShowForGet(ModelMap modelMap, HttpServletRequest request, @RequestParam Map<String,Object> params) throws Exception {
+        params.put("commWorkerId",ConfigFactory.COMM_WORKER_ID);
+        Page page=null;
+        if(null!=params.get("page")){
+            page=JSONUtil.toBean((JSONObject.toJSONString(params.get("page"))), Page.class);
+        }
+        return communityService.findMemberByComm(params,page);
+    }
+    @RequestMapping(value="/findMemberShow",method = {RequestMethod.POST})
     public @ResponseBody
     List findMemberShow(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object> params) throws Exception {
-        params.put("comm_worker_id",ConfigFactory.COMM_WORKER_ID);
-        return communityService.findMemberByComm(params,null);
+        params.put("commWorkerId",ConfigFactory.COMM_WORKER_ID);
+        Page page=null;
+        if(null!=params.get("page")){
+            page=JSONUtil.toBean((JSONObject.toJSONString(params.get("page"))), Page.class);
+        }
+        return communityService.findMemberByComm(params,page);
     }
 
     /**
@@ -118,10 +145,24 @@ public class CommunityController extends BaseController {
      *@version 1.0
      *@used in: CommunityController
      */
-    @RequestMapping("/findMemberAll")
+    @RequestMapping(value="/findMemberAll",method = {RequestMethod.GET})
+    public @ResponseBody
+    List<MemberEntity> findMemberAllForGet(ModelMap modelMap, HttpServletRequest request, @RequestParam Map<String,Object> params) throws Exception {
+        Page page=null;
+        if(null!=params.get("page")){
+            page=JSONUtil.toBean((JSONObject.toJSONString(params.get("page"))), Page.class);
+        }
+        return communityService.findMemberByComm(params,page);
+    }
+
+    @RequestMapping(value="/findMemberAll",method = {RequestMethod.POST})
     public @ResponseBody
     List<MemberEntity> findMemberAll(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object> params) throws Exception {
-        return communityService.findMemberByComm(params,null);
+        Page page=null;
+        if(null!=params.get("page")){
+            page=JSONUtil.toBean((JSONObject.toJSONString(params.get("page"))), Page.class);
+        }
+        return communityService.findMemberByComm(params,page);
     }
 
     @RequestMapping("/commInfo")
@@ -158,6 +199,7 @@ public class CommunityController extends BaseController {
         String approStatus=approResponsitory.getApproStatusByID(params.get("approId").toString());
         if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             comm = ParamUtils.mapToBean(params,comm);
+
             communityResponsitory.save(comm);
         }
         return rs;

@@ -1,8 +1,12 @@
 package com.shetuan.responsitory;
 
+import com.shetuan.entity.ActivityEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,12 +23,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoginResponsitoryTest {
     @Autowired
     private LoginResponsitory loginResponsitory;
+    @Autowired
+    private ActivityResponsitory activityResponsitory ;
     @Test
     public void getByLoginName(){
-        loginResponsitory.findByLoginName("");
+        //loginResponsitory.findByLoginName("");
+        Map params=new HashMap();
+        params.put("activity_id","100001");
+
+        ActivityEntity activityEntity=activityResponsitory.getOne(params.get("activity_id").toString());
+        System.out.println("Test--------22:00--->:"+activityEntity);
         //loginResponsitory.saveAcctRole("11","11","1");
-        System.out.println("Test--------18:15--->:"+loginResponsitory.getRoleIdbyLoginName("11"));
-        System.out.println("Test--------22:05--->:"+loginResponsitory.getByLoginName("333"));
+        //System.out.println("Test--------18:15--->:"+loginResponsitory.getRoleIdbyLoginName("11"));
+        //System.out.println("Test--------22:05--->:"+loginResponsitory.getByLoginName("333"));
 
     }
 

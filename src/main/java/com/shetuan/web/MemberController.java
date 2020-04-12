@@ -172,21 +172,46 @@ public class MemberController extends BaseController{
     }
 
     @RequestMapping("/updatePWD" )
-    public @ResponseBody String updatePWD(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object>  loginEntity){
-        String loginName=loginEntity.get("loginName").toString();
-        String passwdOld=loginEntity.get("passwdOld").toString();
-        String passwdNew=loginEntity.get("passwdNew").toString();
-        LoginEntity loginUsers= loginResponsitory.findByLoginName(loginName).get(0);
+    public @ResponseBody String updatePWD(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object>  params,HttpSession session){
+        //不能通过传用户名的方式直接修改密码,可能出现调用接口修改他人密码的情况
+        //若传了用户名则先判断是否和session中的用户名一致,若一致则允许修改
+        //若不一致则查询当前用户角色是否为管理员,管理员可以修改他人密码,且不做旧密码想等验证
         ModelMap modelMap1=new ModelMap();
+        LoginEntity loginEntity=((LoginEntity)session.getAttribute("login"));
+        if(null==loginEntity){
+            modelMap1.put("status","0");
+            modelMap1.put("info","用户未登陆");
+            return JSONObject.toJSON(modelMap1).toString();
+        }
+        String loginName=params.get("loginName")==null?null:params.get("loginName").toString();
+        if(null==loginName||loginName.length()==0){
+            loginName=loginEntity.getLoginName();
+        }
+        String passwdOld=params.get("passwdOld").toString();
+        String passwdNew=params.get("passwdNew").toString();
+        List<LoginEntity> loginUsers= loginResponsitory.findByLoginName(loginName);
+        if(loginUsers.size()==0){
+            modelMap1.put("status","0");
+            modelMap1.put("info","用户不存在");
+            return JSONObject.toJSON(modelMap1).toString();
+        }
+        LoginEntity loginUser=loginUsers.get(0);
+        String roleId=loginResponsitory.getRoleIdbyLoginName(loginName);
 
-        if(!loginUsers.getLoginPass().equals(MD5Utils.getMD5(passwdOld))){
+
+        if(!loginUser.getLoginPass().equals(MD5Utils.getMD5(passwdOld))){
             modelMap1.put("status","0");
             modelMap1.put("info","原密码错误");
-        }else{
-            loginUsers.setLoginPass(MD5Utils.getMD5(passwdNew));
-            loginResponsitory.save(loginUsers);
+        }else if (!loginName.equals(loginEntity.getLoginName())&&roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)){
+            loginUser.setLoginPass(MD5Utils.getMD5(passwdNew));
+            loginResponsitory.save(loginUser);
             modelMap1.put("status","1");
-            modelMap1.put("info","OK");
+            modelMap1.put("info","管理员修改密码成功");
+        }else{
+            loginUser.setLoginPass(MD5Utils.getMD5(passwdNew));
+            loginResponsitory.save(loginUser);
+            modelMap1.put("status","1");
+            modelMap1.put("info","修改密码成功");
         }
 
 

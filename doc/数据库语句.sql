@@ -66,6 +66,7 @@ phone		    varchar(20) DEFAULT NULL,
 address		    varchar(200) DEFAULT NULL,
 email		    varchar(50) DEFAULT NULL,
 create_date		varchar(20) DEFAULT NULL,
+head_pic		varchar(200) DEFAULT NULL,
 is_add_info		varchar(2)  not NULL DEFAULT '0',
 status		    varchar(2)  not NULL DEFAULT '1',
 PRIMARY KEY (login_id)
@@ -151,7 +152,7 @@ CREATE TABLE if not exists tc_comm_activity (
 activity_id	varchar(20)
 ,activity_name	varchar(200)
 ,comm_id	varchar(20)
-,comm_neme	varchar(200)
+,comm_name	varchar(200)
 ,activity_date	varchar(20)
 ,activity_addr	varchar(200)
 ,activity_sign_date	varchar(20)

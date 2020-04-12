@@ -13,6 +13,7 @@ public class ConfigFactory {
     //序列
     public static String SEQ_LOGIN_ID="SELECT NEXTVAL('seq_user_id');";
     public static String SEQ_COMM_ID="SELECT NEXTVAL('seq_comm_id');";
+
     //活动id序号同审核id
     public static String SEQ_APPRO_ID="SELECT NEXTVAL('seq_appro_id');";
 
@@ -28,5 +29,9 @@ public class ConfigFactory {
 
     //审核状态
     public static String APPRO_STATUS="100";
+
+    //社团申请创建状态
+    public static String COMM_APPRO_STATUS="10";
+
 
 }

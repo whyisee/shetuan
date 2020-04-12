@@ -41,13 +41,13 @@ public class CommunityService {
         SQLParser sqlParser = new SQLParser(param);
         sqlParser.addSQL(" select a.* from tc_comm_community a ");
         sqlParser.addSQL(" where 1=1 and status='1'");
-        sqlParser.addSQL(" and a.comm_id =:comm_id ");
-        sqlParser.addSQL(" and a.create_persion_name =:create_persion_name ");
-        sqlParser.addSQL(" and a.boss_name  =:boss_name ");
-        sqlParser.addSQL(" and a.comm_class_id  =:comm_class_id ");
+        sqlParser.addSQL(" and a.comm_id =:commId ");
+        sqlParser.addSQL(" and a.create_persion_name =:createPersionName ");
+        sqlParser.addSQL(" and a.boss_name  =:bossName ");
+        sqlParser.addSQL(" and a.comm_class_id  =:commClassId ");
         //暂不支持like条件,手工处理
-        if(null!=param.get("comm_name")&&!param.get("comm_name").equals("")){
-            sqlParser.addSQL(" and a.comm_name  like %"+param.get("comm_name")+"% ");
+        if(null!=param.get("commName")&&!param.get("commName").equals("")){
+            sqlParser.addSQL(" and a.comm_name  like '%"+param.get("commName")+"%' ");
         }
         List<CommunityEntity>  communitys= manageSqlTools.queryList(sqlParser,param, CommunityEntity.class,page);
         return communitys;
@@ -61,9 +61,9 @@ public class CommunityService {
         sqlParser.addSQL("  where 1=1                                            ");
         sqlParser.addSQL("  and a.status='1'                                     ");
         sqlParser.addSQL("  and b.status='1'                                     ");
-        sqlParser.addSQL("  and a.comm_id =:comm_id                              ");
-        sqlParser.addSQL("  and a.comm_worker_id >:comm_worker_id                ");
-        sqlParser.addSQL("  order by create_date                                 ");
+        sqlParser.addSQL("  and a.comm_id =:commId                              ");
+        sqlParser.addSQL("  and a.comm_worker_id >:commWorkerId                ");
+        sqlParser.addSQL("  order by comm_worker_id,create_date                                 ");
 
         List  rs= manageSqlTools.queryList(sqlParser,param, null,page);
         return rs;

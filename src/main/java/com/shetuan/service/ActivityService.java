@@ -56,7 +56,7 @@ public class ActivityService {
         if(null!=param.get("activity_name")&&!param.get("activity_name").equals("")){
             sqlParser.addSQL(" and a.activity_name  like %"+param.get("activity_name")+"% ");
         }
-        List<ActivityEntity>  activitys= manageSqlTools.queryList(sqlParser,param, CommunityEntity.class,page);
+        List<ActivityEntity>  activitys= manageSqlTools.queryList(sqlParser,param, ActivityEntity.class,page);
         return activitys;
     }
 

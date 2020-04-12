@@ -62,4 +62,7 @@ public class CommunityEntity {
 
     @Column(name="show_order_no")
     private String showOrderNo;
+
+    @Column(name="status")
+    private String status;
 }

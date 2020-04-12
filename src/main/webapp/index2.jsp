@@ -133,7 +133,7 @@
                     <ul class="nav navbar-nav" id="comm-list">
                         <li class="active"><a href="index2.jsp">首页</a></li>
                         <li v-for="item in items">
-                            <a v-bind:href="'index2.jsp#comm'+item.commClassId" >{{ item.commClassName }}</a>
+                            <a v-bind:href="'index2.jsp#comm'+item.commClassId" v-bind:commid="item.commClassId" onclick="singleReturn()">{{ item.commClassName }}</a>
                         </li>
                         <li><a href="index2.jsp#notice">活动公告</a></li>
                     </ul>

@@ -13,7 +13,7 @@ Vue.component('comm-info', {
     props: ['item','communitys'],
     template: '<div><div><h2>{{ item.commClassName }}<h2></div>'+
         '    <div v-for="item in communitys">' +
-        '        <h3>{{ item.commName }} <a>申请加入</a></h3>' +
+        '        <h3>{{ item.commName }} <a >申请加入</a></h3>' +
         '        <p>理事长: {{ item.bossName }}</p>' +
         '        <p>简介: {{ item.commInfo }}</p>' +
         '        <p>特色活动: {{ item.commSpecialAct }}</p>' +
@@ -42,12 +42,12 @@ var example2= new Vue({
     }
 })
 
-init();
+//init();
 
 function init(){
 
 $.ajax({
-    url:"/community/index", //请求的url地址
+    url:"community/index", //请求的url地址
     dataType:"json", //返回格式为json
     async:true,//请求是否异步，默认为异步，这也是ajax重要特性
     data:{"id":"value"}, //参数值
@@ -70,16 +70,18 @@ $.ajax({
 }
 
 function testinterface(){
-
-    var testdata={loginId:"555",loginName:"333",userName:"test",studentId:"123123",
+//loginName:"333",
+    var testdata={loginId:"555",loginName:"332",userName:"test",studentId:"123123",
         sex:"男",inDate:"2019",college:"计算机",specially:"软件",
         phone:"123456",address:"1#23",email:"9070@qq.com",
-        passwdOld:"333",passwdNew:"123",commId:"100031"
+        passwdOld:"333",passwdNew:"123",commId:"100031",activity_id:"100001",
+        page:{pageSize:"10",pageCurrent:"1"}
+
     }
     var testdata2=JSON.stringify(testdata);
     console.log(testdata2)
     $.ajax({
-        url:"/community/commInfo", //请求的url地址
+        url:"/community/findAll", //请求的url地址
         contentType: 'application/json;charset=UTF-8',
         dataType:"json", //返回格式为json
         async:true,//请求是否异步，默认为异步，这也是ajax重要特性
@@ -99,6 +101,18 @@ function testinterface(){
         }
     });
 
+}
+
+function singleReturn(){
+    var img_id="";
+    if (event.target==undefined){
+        img_id=event.srcElement;
+    }else{
+        img_id=event.target;
+    }
+
+    var commid=img_id.getAttribute("commid");
+    //console.log(commid)
 }
 
 testinterface()

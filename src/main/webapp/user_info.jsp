@@ -28,7 +28,22 @@
 
 
 ${login.loginName }
-${funcright}
+<%--${funcright}--%>
+
+<form >
+    <label>上传图片</label>
+    <input type="file" name="file" id="fileName1">
+<%--
+    <input type="submit" value="上传">
+--%>
+    <input type="button" value="上传" onclick="return upload(this);"/>
+
+</form>
+
+<p>图片</p>
+<img id="img1" src="/upload/ab3a8f65-e0d7-4d89-bc01-6d13334d76a8.png"/>
+
+
 <script src="/js/user_info.js"></script>
 </body>
 </html>
