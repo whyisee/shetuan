@@ -101,15 +101,15 @@ public class ManageSqlTools  {
         }
     }
 
-    public List queryList(SQLParser sql, HashMap<String,Object> param,Page page) throws Exception {
+    public List queryList(SQLParser sql, Map<String,Object> param,Page page) throws Exception {
         return this.queryList(sql,param,null,page);
     }
 
-    public List queryList(SQLParser sql, HashMap<String,Object> param) throws Exception {
+    public List queryList(SQLParser sql, Map<String,Object> param) throws Exception {
         return this.queryList(sql,param,null,null);
     }
 
-    public List queryList(SQLParser sql, HashMap<String,Object> param,Class clazz) throws Exception {
+    public List queryList(SQLParser sql, Map<String,Object> param,Class clazz) throws Exception {
         return this.queryList(sql,param,clazz,null);
     }
 

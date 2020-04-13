@@ -81,7 +81,7 @@ function testinterface(){
     var testdata2=JSON.stringify(testdata);
     console.log(testdata2)
     $.ajax({
-        url:"/community/findAll", //请求的url地址
+        url:"/member/update", //请求的url地址
         contentType: 'application/json;charset=UTF-8',
         dataType:"json", //返回格式为json
         async:true,//请求是否异步，默认为异步，这也是ajax重要特性

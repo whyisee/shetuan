@@ -19,3 +19,7 @@ server:
 file:
   upload:
     path: "src/main/webapp/upload/"
+
+interceptor:
+  path:
+    exclude: "/index.jsp"

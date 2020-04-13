@@ -163,11 +163,20 @@ public class MemberController extends BaseController{
         return "/login";
     }
 
-    @RequestMapping("/update" )
-    public @ResponseBody String update(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
-        //JSONObject param = ParamUtils.getParamObjectWithFormData(request);
-       // MemberEntity member= JSON.parseObject(param.toString(), MemberEntity.class);
+    @RequestMapping(value = "/update",method = {RequestMethod.GET})
+    public @ResponseBody String updateForGet(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
+
+
         memberEntity.setIsAddInfo("1");
+        return JSONObject.toJSON(memberResponsitory.save(memberEntity)).toString();
+    }
+
+    @RequestMapping(value="/update",method = {RequestMethod.POST} )
+    public @ResponseBody String update(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
+        memberEntity.setIsAddInfo("1");
+        memberResponsitory.getIdByLoginName("100003");
+        //memberEntity
+
         return JSONObject.toJSON(memberResponsitory.save(memberEntity)).toString();
     }
 
@@ -220,10 +229,54 @@ public class MemberController extends BaseController{
         return JSONObject.toJSON(modelMap1).toString();
     }
 
-    @RequestMapping("/getInfo")
+    @RequestMapping(value="/getInfo",method = {RequestMethod.GET})
     public @ResponseBody
-    List<MemberEntity> getInfo(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
-        return memberResponsitory.findByLoginName(memberEntity.getLoginName());
+    MemberEntity getInfoForGet(ModelMap modelMap, HttpServletRequest request,@RequestParam Map<String,Object> params,HttpSession session){
+        ModelMap modelMap1=new ModelMap();
+        MemberEntity memberEntity=new MemberEntity();
+        LoginEntity loginEntity=((LoginEntity)session.getAttribute("login"));
+        if(null==loginEntity){
+            modelMap1.put("status","0");
+            modelMap1.put("info","用户未登陆");
+            return memberEntity;
+        }
+        String loginName=params.get("loginName")==null?null:params.get("loginName").toString();
+        String loginNameNow=loginEntity.getLoginName();
+        String roleId="";
+        if(null!=loginName&&loginName.length()>0&&!loginName.equals(loginNameNow)){
+            roleId=loginResponsitory.getRoleIdbyLoginName(loginNameNow);
+            if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)){
+                memberEntity=memberResponsitory.findByLoginName(loginName).get(0);
+            }
+        }else{
+            memberEntity=memberResponsitory.findByLoginName(loginNameNow).get(0);
+        }
+
+        return memberEntity;
+    }
+    @RequestMapping(value="/getInfo",method = {RequestMethod.POST})
+    public @ResponseBody
+    MemberEntity getInfo(ModelMap modelMap, HttpServletRequest request,@RequestBody  Map<String,Object> params,HttpSession session){
+        ModelMap modelMap1=new ModelMap();
+        MemberEntity memberEntity=new MemberEntity();
+        LoginEntity loginEntity=((LoginEntity)session.getAttribute("login"));
+        if(null==loginEntity){
+            modelMap1.put("status","0");
+            modelMap1.put("info","用户未登陆");
+            return memberEntity;
+        }
+        String loginName=params.get("loginName")==null?null:params.get("loginName").toString();
+        String loginNameNow=loginEntity.getLoginName();
+        String roleId="";
+        if(null!=loginName&&loginName.length()>0&&!loginName.equals(loginNameNow)){
+            roleId=loginResponsitory.getRoleIdbyLoginName(loginNameNow);
+            if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)){
+                memberEntity=memberResponsitory.findByLoginName(loginName).get(0);
+            }
+        }else{
+            memberEntity=memberResponsitory.findByLoginName(loginNameNow).get(0);
+        }
+        return memberEntity;
     }
     @RequestMapping("/logout")
     public String logout(HttpSession session){
@@ -233,12 +286,23 @@ public class MemberController extends BaseController{
 
         return "/index";
     }
-
-
-    public void test(){
-        String loginID=entityManager.createNativeQuery(ConfigFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
-        System.out.println("Test--------11:58--->:"+loginID);
+    @RequestMapping(value="/checkStudent",method = {RequestMethod.GET})
+    public @ResponseBody
+    List checkStudentForGet(ModelMap modelMap, HttpServletRequest request,@RequestParam Map<String,Object> params) throws Exception {
+        List students=memberService.checkStudent(params);
+        return students;
     }
+
+    @RequestMapping(value="/checkStudent",method = {RequestMethod.POST})
+    public @ResponseBody
+    List checkStudent(ModelMap modelMap, HttpServletRequest request,@RequestBody Map<String,Object> params) throws Exception {
+        List students=memberService.checkStudent(params);
+        return students;
+    }
+
+
+
+
 
 
 }

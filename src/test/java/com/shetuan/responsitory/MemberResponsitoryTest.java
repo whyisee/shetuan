@@ -28,7 +28,7 @@ public class MemberResponsitoryTest {
         memberEntity.setLoginId("123");
         memberEntity.setLoginName("123");
         memberEntity.setIsAddInfo("0");
-        memberResponsitory.saveAndFlush(memberEntity);
+        //memberResponsitory.saveAndFlush(memberEntity);
         //memberResponsitory.
         System.out.println("Test--------19:09--->:"+memberResponsitory.findAll());
 
