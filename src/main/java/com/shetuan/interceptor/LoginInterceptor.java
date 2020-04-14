@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
        // System.out.println("Test--------19:10--->:"+"111"+handle);
         HttpSession session = request.getSession(true);
         Object username=session.getAttribute("login");
-        System.out.println("Test--------22:22--->:"+username);
+        //System.out.println("Test--------22:22--->:"+username);
         if(null!=username) {//已登录
             return true;
         }else {//未登录

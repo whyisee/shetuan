@@ -30,7 +30,7 @@ public class CommunityEntity {
     private String createPersionId;
 
     @Column(name="create_persion_name")
-    private String createNersionName;
+    private String createPersionName;
 
     @Column(name="boss_id")
     private String bossId;

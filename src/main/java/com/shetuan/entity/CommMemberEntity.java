@@ -47,6 +47,9 @@ public class CommMemberEntity {
     @Column(name="comm_person_remark")
     private String commPersonRemark;
 
+    @Column(name="create_date")
+    private String createDate;
+
     @Column(name="is_create")
     private String isCreate;
 

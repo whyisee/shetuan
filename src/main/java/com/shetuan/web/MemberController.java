@@ -2,12 +2,14 @@ package com.shetuan.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.shetuan.bean.Member;
 import com.shetuan.entity.LoginEntity;
 import com.shetuan.entity.MemberEntity;
 import com.shetuan.responsitory.LoginResponsitory;
 import com.shetuan.responsitory.MemberResponsitory;
 import com.shetuan.responsitory.ConfigFactory;
 import com.shetuan.service.MemberService;
+import com.shetuan.util.BeanUtils;
 import com.shetuan.util.MD5Utils;
 import com.shetuan.util.ParamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,35 @@ public class MemberController extends BaseController{
 
 
 
+
+    @RequestMapping(value="/checkUser",method = {RequestMethod.GET})
+    public @ResponseBody String checkUserForGet(ModelMap modelMap, HttpServletRequest request,@RequestParam Map param){
+        ModelMap modelMap1=new ModelMap();
+        List<LoginEntity> loginEntities =loginResponsitory.getByLoginName("loginName");
+        if(loginEntities.size()>0){
+            modelMap1.put("status","0");
+            modelMap1.put("info","用户名已存在");
+        }else {
+            modelMap1.put("status","1");
+            modelMap1.put("info","用户名未注册,可使用");
+        }
+        return JSONObject.toJSON(modelMap1).toString();
+
+    }
+
+    @RequestMapping(value="/checkUser",method = {RequestMethod.POST})
+    public @ResponseBody String checkUser(ModelMap modelMap, HttpServletRequest request,@RequestBody Map param){
+        ModelMap modelMap1=new ModelMap();
+        List<LoginEntity> loginEntities =loginResponsitory.getByLoginName("loginName");
+        if(loginEntities.size()>0){
+            modelMap1.put("status","0");
+            modelMap1.put("info","用户名已存在");
+        }else {
+            modelMap1.put("status","1");
+            modelMap1.put("info","用户名未注册,可使用");
+        }
+        return JSONObject.toJSON(modelMap1).toString();
+    }
     /*
     注册接口
     */
@@ -164,20 +195,21 @@ public class MemberController extends BaseController{
     }
 
     @RequestMapping(value = "/update",method = {RequestMethod.GET})
-    public @ResponseBody String updateForGet(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
-
-
+    public @ResponseBody String updateForGet(ModelMap modelMap, HttpServletRequest request,@RequestParam MemberEntity memberEntity){
         memberEntity.setIsAddInfo("1");
-        return JSONObject.toJSON(memberResponsitory.save(memberEntity)).toString();
+        String loginName=memberEntity.getLoginName();
+        MemberEntity memberEntity1=memberResponsitory.findByLoginName(loginName).get(0);
+        MemberEntity memberEntity2= BeanUtils.beanMarge(memberEntity,memberEntity1);
+        return JSONObject.toJSON(memberResponsitory.save(memberEntity2)).toString();
     }
 
     @RequestMapping(value="/update",method = {RequestMethod.POST} )
-    public @ResponseBody String update(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity){
+    public @ResponseBody String update(ModelMap modelMap, HttpServletRequest request,@RequestBody MemberEntity memberEntity)  {
         memberEntity.setIsAddInfo("1");
-        memberResponsitory.getIdByLoginName("100003");
-        //memberEntity
-
-        return JSONObject.toJSON(memberResponsitory.save(memberEntity)).toString();
+        String loginName=memberEntity.getLoginName();
+        MemberEntity memberEntity1=memberResponsitory.findByLoginName(loginName).get(0);
+        MemberEntity memberEntity2= BeanUtils.beanMarge(memberEntity,memberEntity1);
+        return JSONObject.toJSON(memberResponsitory.save(memberEntity2)).toString();
     }
 
     @RequestMapping("/updatePWD" )

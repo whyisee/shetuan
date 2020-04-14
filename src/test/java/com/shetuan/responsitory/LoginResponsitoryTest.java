@@ -32,7 +32,7 @@ class LoginResponsitoryTest {
         params.put("activity_id","100001");
 
         ActivityEntity activityEntity=activityResponsitory.getOne(params.get("activity_id").toString());
-        System.out.println("Test--------22:00--->:"+activityEntity);
+        System.out.println("Test--------22:00--->:"+loginResponsitory.getRoleIdbyLoginName("333"));
         //loginResponsitory.saveAcctRole("11","11","1");
         //System.out.println("Test--------18:15--->:"+loginResponsitory.getRoleIdbyLoginName("11"));
         //System.out.println("Test--------22:05--->:"+loginResponsitory.getByLoginName("333"));

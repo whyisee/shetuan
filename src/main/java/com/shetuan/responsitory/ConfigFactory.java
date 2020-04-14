@@ -34,4 +34,24 @@ public class ConfigFactory {
     public static String COMM_APPRO_STATUS="10";
 
 
+    //审核类型
+    //社团创建
+    public static String APPRO_TYPE_COMM_ADD="11";
+    //加入社团
+    public static String APPRO_TYPE_COMM_SIGN="12";
+    //删除社团
+    public static String APPRO_TYPE_COMM_DEL="13";
+    //退出社团
+    public static String APPRO_TYPE_COMM_QUIT="14";
+
+    //创建活动
+    public static String APPRO_TYPE_ACT_ADD="21";
+    //加入活动
+    public static String APPRO_TYPE_ACT_SIGN="22";
+    //删除活动
+    public static String APPRO_TYPE_ACT_DEL="23";
+    //退出活动
+    public static String APPRO_TYPE_ACT_QUIT="24";
+
+
 }

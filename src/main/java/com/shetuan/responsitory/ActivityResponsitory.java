@@ -15,6 +15,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface ActivityResponsitory extends JpaRepository<ActivityEntity,String> {
 
-    @Query(value = "select activity_persion_now from  tc_comm_activity where activity_id=? and status='1'",nativeQuery = true)
+    @Query(value = "select count(1)  from  tc_act_member where activity_id=? and status='1'",nativeQuery = true)
     public String getNowNumByActivityId(String activityId);
 }

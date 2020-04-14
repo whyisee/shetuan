@@ -151,6 +151,9 @@ public class ManageSqlTools  {
         rs=query.getResultList();
         return rs;
     }
+    public String getSeqId(String seqSql){
+        return entityManager.createNativeQuery(seqSql).getResultList().get(0).toString();
+    }
 
     public void test(){
         String loginID=entityManager.createNativeQuery(ConfigFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();

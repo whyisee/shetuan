@@ -7,6 +7,7 @@ import com.shetuan.entity.PrimaryKeyLoginCommID;
 import com.shetuan.responsitory.CommMemberResponsitory;
 import com.shetuan.responsitory.CommunityResponsitory;
 import com.shetuan.responsitory.ManageSqlTools;
+import com.shetuan.util.BeanUtils;
 import com.shetuan.util.Page;
 import com.shetuan.util.ParamUtils;
 import com.shetuan.util.SQLParser;
@@ -69,13 +70,13 @@ public class CommunityService {
         return rs;
     }
 
-    public String memberAdd(Map<String,Object> param) throws Exception {
+    public String memberAdd(Map<String, Object> param) throws Exception {
         //社团成员增加
         //1.先在社团成员关系表中增加记录
         //2.在社团表中更新社团成员数量
-        CommMemberEntity commMemberEntity=new CommMemberEntity();
-        commMemberEntity= ParamUtils.mapToBean(param,commMemberEntity);
-        commMemberResponsitory.save(commMemberEntity);
+/*        CommMemberEntity commMemberEntity=new CommMemberEntity();
+        commMemberEntity= BeanUtils.mapToBean(param,commMemberEntity);
+        commMemberResponsitory.save(commMemberEntity);*/
 
         Optional<CommunityEntity> comm=communityResponsitory.findById(param.get("commId").toString());
         CommunityEntity commNew=comm.get();
@@ -88,7 +89,7 @@ public class CommunityService {
         //1.先在社团成员关系表中删除记录
         //2.在社团表中更新社团成员数量
         CommMemberEntity commMemberEntity=new CommMemberEntity();
-        commMemberEntity= ParamUtils.mapToBean(param,commMemberEntity);
+        commMemberEntity= BeanUtils.mapToBean(param,commMemberEntity);
         PrimaryKeyLoginCommID primaryKeyLoginCommID = new PrimaryKeyLoginCommID();
         primaryKeyLoginCommID.setCommId(param.get("commId").toString());
         primaryKeyLoginCommID.setLoginId(param.get("LoginId").toString());

@@ -1,5 +1,6 @@
 package com.shetuan.service;
 
+import com.shetuan.responsitory.ConfigFactory;
 import com.shetuan.responsitory.LoginResponsitory;
 import com.shetuan.responsitory.ManageSqlTools;
 import com.shetuan.util.SQLParser;
@@ -45,4 +46,6 @@ public class MemberService {
         sqlParser.addSQL("  and a.user_name =:userName ");
         return manageSqlTools.queryList(sqlParser,param);
     }
+
+
 }
