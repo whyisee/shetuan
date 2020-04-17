@@ -11,13 +11,13 @@ function registCheck(form) {
 		alert("两次输入的密码不一致。");
 		document.forms.myfor.repass.focus();
 		return false;
-	} else if (document.forms.myfor.email.value== "") {
-		alert("邮箱不能为空。");
-		document.forms.myfor.email.focus();
+	} else if (document.forms.myfor.userName.value== "") {
+		alert("姓名不能为空。");
+		document.forms.myfor.userName.focus();
 		return false;
-	} else if (document.forms.myfor.phone.value== "") {
-		alert("手机号不能为空。");
-		document.forms.myfor.phone.focus();
+	} else if (document.forms.myfor.studentId.value== "") {
+		alert("学号号不能为空。");
+		document.forms.myfor.studentId.focus();
 		return false;
 	}
     if (document.forms.myfor.validateCode.value == "") {

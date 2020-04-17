@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,23 +93,48 @@ public class MemberController extends BaseController{
     @RequestMapping("/regist")
     public String registMember(ModelMap modelMap, HttpServletRequest request, MemberEntity memberEntity,HttpSession session) throws Exception {
         JSONObject param = ParamUtils.getParamObjectWithFormData(request);
-
+        //System.out.println("Test--------22:49--->:"+param);
         MemberEntity member= JSON.parseObject(param.toString(), MemberEntity.class);
         LoginEntity login= JSON.parseObject(param.toString(), LoginEntity.class);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
         String dateNowStr = sdf.format(d);
+        //param.getString()
 
         //获取用户id
         String loginID=entityManager.createNativeQuery(ConfigFactory.SEQ_LOGIN_ID).getResultList().get(0).toString();
+        login.setLoginName(param.getString("username"));
 
+        //先判断是否是学生
+        Map params= new HashMap();
+        params.put("studentId",param.getString("studentId"));
+        params.put("userName",param.getString("userName"));
+        //System.out.println("Test--------22:52--->:"+params);
+        List students=memberService.checkStudent(params);
+        if(students.isEmpty()){
+            modelMap.put("status","0");
+            modelMap.put("info","该学号非本校学生");
+            session.setAttribute("login",1);
+            return "/regist";
+        }
+
+        //再判断是否已注册
+        List members=memberService.checkMembers(params);
+
+        if(!members.isEmpty()){
+            modelMap.put("status","0");
+            modelMap.put("info","该学号已被注册");
+            session.setAttribute("login",login);
+            return "/regist";
+        }
         //设置member表信息,保存
         member.setLoginId(loginID);
         member.setLoginName(param.getString("username"));
         member.setCreateDate(dateNowStr);
         member.setIsAddInfo("0");
-        member.setEmail(param.getString("email"));
-        member.setPhone(param.getString("phone"));
+        member.setStatus("1");
+        //member.setEmail();
+        //member.setPhone(param.getString("phone"));
         memberResponsitory.save(member);
 
         //设置login表信息,保存

@@ -42,10 +42,19 @@ public class MemberService {
         SQLParser sqlParser=new SQLParser(param);
         sqlParser.addSQL("select * from  td_b_student a ");
         sqlParser.addSQL(" where 1=1 and a.status='1' ");
-        sqlParser.addSQL("  and a.student_id =:studentId' ");
+        sqlParser.addSQL("  and a.student_id =:studentId ");
         sqlParser.addSQL("  and a.user_name =:userName ");
         return manageSqlTools.queryList(sqlParser,param);
     }
+    public List checkMembers(Map<String,Object> param) throws Exception {
+        SQLParser sqlParser=new SQLParser(param);
+        sqlParser.addSQL("select * from  tc_acct_member a ");
+        sqlParser.addSQL(" where 1=1 and a.status='1' ");
+        sqlParser.addSQL("  and a.student_id =:studentId ");
+        sqlParser.addSQL("  and a.user_name =:userName ");
+        return manageSqlTools.queryList(sqlParser,param);
+    }
+
 
 
 }
