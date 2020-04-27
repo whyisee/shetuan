@@ -22,6 +22,8 @@ public class ApproEntity {
     @Column(name="appro_id")
     private String approId;
 
+    @Column(name="flow_id")
+    private String flowId;
 
     @Column(name="appro_name")
     private String approName;

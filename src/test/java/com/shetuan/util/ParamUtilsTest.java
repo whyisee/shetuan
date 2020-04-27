@@ -23,7 +23,7 @@ class ParamUtilsTest {
         Map map=new HashMap();
         map.put("approId","111");
         ApproEntity approEntity = new ApproEntity();
-        approEntity=ParamUtils.mapToBean(map,approEntity);
+        approEntity=BeanUtils.mapToBean(map,approEntity);
         System.out.println("Test--------0:27--->:"+approEntity);
     }
 

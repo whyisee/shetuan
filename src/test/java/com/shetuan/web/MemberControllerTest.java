@@ -22,6 +22,6 @@ class MemberControllerTest {
     private MemberController memberController;
     @Test
     void test1() {
-        memberController.test();
+        //memberController.test();
     }
 }

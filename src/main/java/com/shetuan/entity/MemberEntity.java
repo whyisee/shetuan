@@ -31,35 +31,55 @@ public class MemberEntity {
     private String loginName;
 
     //姓名
+    @Column(name="user_name")
     private String userName;
 
     //学号
+    @Column(name="student_id")
     private String studentId;
 
     //性别
+    @Column(name="sex")
     private String sex;
 
     //入学年份
+    @Column(name="in_date")
     private String inDate;
 
     //学院
+    @Column(name="college")
     private String college;
 
     //专业
+    @Column(name="specially")
     private String specially;
 
     //电话
+    @Column(name="phone")
     private String phone;
 
     //地址
+    @Column(name="address")
     private String address;
 
     //email
+    @Column(name="email")
     private String email;
 
     //创建时间
+    @Column(name="create_date")
     private String createDate;
 
     //是否信息完整
+    @Column(name="is_add_info")
     private String isAddInfo;
+
+
+    @Column(name="head_pic")
+    private String headPic;
+
+    @Column(name="status")
+    private String status;
+
+
 }

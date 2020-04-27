@@ -23,10 +23,10 @@
     <div class="wrap">
         <div class="container">
             <h1>注册</h1><br>
-            <c:if test="${param.rs =='success' }"><font -size="4px"; color=blue>&nbsp;&nbsp;&nbsp;<b>注册成功，请登录</b></font></c:if>
+     <%--       <c:if test="${param.rs =='success' }"><font -size="4px"; color=blue>&nbsp;&nbsp;&nbsp;<b>注册成功，请登录</b></font></c:if>
     		<c:if test="${param.rs =='fail' }"><font -size="4px"; color=red>&nbsp;&nbsp;&nbsp;<b>注册失败，请重新尝试</b></font></c:if>
-    		<c:if test="${param.rs =='exist' }"><font -size="4px"; color=red>&nbsp;&nbsp;&nbsp;<b>登录名已存在</b></font></c:if>
-   
+    		<c:if test="${param.rs =='exist' }"><font -size="4px"; color=red>&nbsp;&nbsp;&nbsp;<b>登录名已存在</b></font></c:if>--%>
+
             <form action="/member/regist" method="post" name="myfor" id="myfor">
                 <input id="name"  name="username" type="text" placeholder="用户名" onblur=""/>
                 <div></div>
@@ -36,11 +36,11 @@
                 <input id="passwordAgain" name="repass" type="password" placeholder="确认密码" onblur=""/>
                 <div></div>
 
-                <input id="address" name="email" type="text" placeholder="邮箱" onblur=""/>
+                <input id="userName" name="userName" type="text" placeholder="姓名" onblur=""/>
                 <div></div>
 
-                <input id="tel" name="phone" type="text" placeholder="电话" onblur=""/>
-                <div></div>
+                <input id="studentId" name="studentId" type="text" placeholder="学号" onblur=""/>
+                <div><font -size="4px"; color=red>&nbsp;&nbsp;&nbsp;<b> ${info}</b></font></div>
 
                 <div class="">
                     <input style="vertical-align:middle; width: 240px" name="validateCode" id="validateCode" type="text" placeholder="验证码" />

@@ -1,6 +1,7 @@
 package com.shetuan.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity(name="tc_comm_activity")
+@Proxy(lazy = false)
 public class ActivityEntity {
     @Id
     @Column(name="activity_id")

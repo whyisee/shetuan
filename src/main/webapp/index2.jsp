@@ -61,8 +61,8 @@
                         <li ><a href="regist.jsp" style="{color:#fffff;}">注册</a></li>
                     </c:if>
                     <c:if test="${login != null}">
-                        <li class="y-in"><a href="MemberInfo?mname=${login.loginName }">欢迎：${login.loginName }</a></li>
-                        <li><a href="loginOut"> | 注销</a></li>
+                        <li class="y-in"><a href="user_info.jsp">欢迎：${login.loginName }</a></li>
+                        <li><a href="/member/logout"> | 注销</a></li>
                     </c:if>
 
                 </ul>
@@ -133,7 +133,7 @@
                     <ul class="nav navbar-nav" id="comm-list">
                         <li class="active"><a href="index2.jsp">首页</a></li>
                         <li v-for="item in items">
-                            <a v-bind:href="'index2.jsp#comm'+item.commClassId" >{{ item.commClassName }}</a>
+                            <a v-bind:href="'index2.jsp#comm'+item.commClassId" v-bind:commid="item.commClassId" onclick="singleReturn()">{{ item.commClassName }}</a>
                         </li>
                         <li><a href="index2.jsp#notice">活动公告</a></li>
                     </ul>
@@ -147,126 +147,24 @@
 <!-- /Banner Section -->
 <!-- About Section -->
 <p>111</p>
-<div id="components-demo">
-    <button-counter
+<div id="comm-info">
+    <comm-info
             v-for="item in items"
             v-bind:item="item"
+            v-bind:communitys="item.communitys"
+
             v-bind:key="item.commClassId"
     >
-    </button-counter>
+    </comm-info>
 </div>
+
+
 
 
 
 <p>111</p>
 
-<section class="our-services" id="comm100000">
-    <h3 class="text-center slideanim">科技创新类社团</h3>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <div class="serv-details">
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-6">
-                            <img src="images/serv- chemistry.jpg" alt="" class="img-responsive slideanim">
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div class="serv-img-details slideanim">
-                                <h4><a href="info/community_info.jsp" target="_blank">网络协会</a></h4>
-                                <p><a href="index.jsp">申请加入</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="serv-info slideanim speech">
-                    <p>
-                        <span>理事长：</span>张一天</br>
-                        <span>简介：</span>网络协会于2002年12月成立，学术科技类社团，隶属于井冈山大学学生社团联合会，依托电子信息工程学院，由曾小荟老师担任指导老师。社团由理事长组织管理。理事会由理事长、副理事长、理事长助理构成，下设技术部、组织策划部、外联部、宣传部、网络部等部门，拥有自己的会旗。</br>
-                        <span>特色活动：</span>深入的学习三大办公软件；操作系统的安装；文件资源修改； MP5固件美化
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="serv-details">
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-6">
-                            <img src="images/serv-geographical.jpg" alt="" class="img-responsive slideanim">
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div class="serv-img-details slideanim">
-                                <h4><a href="info/community_info.jsp" target="_blank">电子创新协会</a></h4>
-                                <p><a href="index.jsp">申请加入</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="serv-info slideanim speech">
-                    <p>
-                        <span>理事长：</span>胡大勇</br>
-                        <span>简介：</span>电子创新协会成立于2002年，学术科技类社团，隶属于井冈山大学学生社团联合会，依托电子与信息工程学院，由电子系主任肖开选担任指导老师，同时拥有一个以电子系老师组成的电子系顾问团。社团由理事会管理。理事会由理事长、副理事长构成。下设纪检部、技术部、宣传部、组织策划部、财务部等部门。拥有自己的会旗和实验室———十栋A区405.</br>
-                        <span>特色活动：</span>参加各种电子科技竞赛,走出校外与其它协会交流经验；电器维修，旨在丰富大学生课余生活；
 
-                        　　 电子制作，注重培养学生的自主创新能力； 经验交流会，举办交流会讨论电子专业最前沿技术。
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <div class="serv-details">
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-6">
-                            <img src="images/serv-math.jpg" alt="" class="img-responsive slideanim">
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div class="serv-img-details slideanim">
-                                <h4><a href="info/community_info.jsp" target="_blank">数学建模协会</a></h4>
-                                <p><a href="index.jsp">申请加入</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="serv-info slideanim speech">
-                    <p>
-                        <span>理事长：</span>李思思</br>
-                        <span>简介：</span>井冈山大学数学建模协会成立于2004年10月12日，是以“全面推广数学知识，提高学生的数学认识，增强学生的数学应用能力”为宗旨的学术科技类社团。是以数理学院为依托单位，校团委社团联合会直接领导的学生组织，由数理学院邓志云副教授担任指导老师。数学建模协会由理事会组织管理，理事会由理事长、总监、副理事长构成，下设有办公室、活动策划部、数模研究部、宣传部、学习部、信息部、财务部等部门，拥有自己的会旗和办公室（10栋C303）以及活动室10栋B区207、208、209。</br>
-                        <span>特色活动：</span>邀请协会指导老师授课； 组织会员在数学实验室上机学习数学软件；组织会员观看数学电影；
-
-                        承办由学校教务处主办的“井冈杯”数学建模竞赛；
-
-                        组织理事成员整理协会历年档案，编辑并出版《数学建模报》；
-
-                        为每年的全国大学生数学建模竞赛培养优秀建模人才，并代表学校参赛。
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="serv-details">
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-6">
-                            <img src="images/serv-img4.jpg" alt="" class="img-responsive slideanim">
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div class="serv-img-details slideanim">
-                                <h4><a href="info/community_info.jsp" target="_blank">软件协会</a></h4>
-                                <p><a href="index.jsp">申请加入</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="serv-info slideanim speech">
-                    <p>
-                        <span>理事长：</span>倡导以人为本，以计算机为媒介，加强信息交流</br>
-                        <span>简介：</span>软件协会于2012年11月成立，协会性质为兴趣爱好和学术研究类社团，隶属于井冈山大学学生社团联合会，依托电子与信息工程学院，由电信学院团委副书记，学生科副科长何旭梅、电信学院讲师吴兰英、电信学院讲师彭蕾担任指导老师，同时拥有一个由电信学院教师组成的专业指导团队，社团由理事会组织管理。理事会由理事长、副理事长、理事长助理构成，下设办公室、策划部、宣传部、编辑部、技术部等部门，拥有自己的实验室——十栋B509和工作室——十栋创业孵化中心梧桐树下工作室。</br>
-                        <span>特色活动：</span>课程教学，由专业老师和有经验的学长学姐进行指导；ＩＴ比赛，社员将参加国家级、省级等各级大赛；
-                        技术交流，社员和老师以及学长学姐进行课上和课下交流；
-                        校内活动，在全校范围内开展电子竞技等各类友谊赛。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <!-- /Our contact -->
 <!--/notice-->
 <section class="our-services" id="notice">

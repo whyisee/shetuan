@@ -1,0 +1,40 @@
+.tool-user-face{
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.security-nav-name {
+    margin-left: 12px;
+    font-size: 14px;
+    color: #222;
+}
+.security-ul{
+    border-bottom: 1px solid #e1e2e5;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.security-list {
+    width: 150px;
+    height: 48px;
+    line-height: 48px;
+}

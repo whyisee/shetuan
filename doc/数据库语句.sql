@@ -66,6 +66,7 @@ phone		    varchar(20) DEFAULT NULL,
 address		    varchar(200) DEFAULT NULL,
 email		    varchar(50) DEFAULT NULL,
 create_date		varchar(20) DEFAULT NULL,
+head_pic		varchar(200) DEFAULT NULL,
 is_add_info		varchar(2)  not NULL DEFAULT '0',
 status		    varchar(2)  not NULL DEFAULT '1',
 PRIMARY KEY (login_id)
@@ -114,7 +115,7 @@ CREATE  TABLE if not exists tc_comm_class (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
---社团成员关系表
+-- 社团成员关系表
 CREATE TABLE if not exists tc_comm_member (
    login_id	    varchar(20)
     ,login_name	    varchar(20)
@@ -130,9 +131,10 @@ CREATE TABLE if not exists tc_comm_member (
     ,PRIMARY KEY (login_id,comm_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---审核表
+-- 审核表
 CREATE TABLE if not exists tc_flow_appro (
 appro_id	varchar(20)
+,flow_id varchar(20)
 ,appro_name	varchar(200)
 ,create_login_name	varchar(20)
 ,create_date	varchar(20)
@@ -146,27 +148,27 @@ appro_id	varchar(20)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
---活动表
+-- 活动表
 CREATE TABLE if not exists tc_comm_activity (
 activity_id	varchar(20)
 ,activity_name	varchar(200)
 ,comm_id	varchar(20)
-,comm_neme	varchar(200)
+,comm_name	varchar(200)
 ,activity_date	varchar(20)
 ,activity_addr	varchar(200)
 ,activity_sign_date	varchar(20)
 ,activity_info	varchar(500)
 ,activity_persion_num	varchar(20)
 ,activity_persion_now	varchar(20)
-,is_notcomm_can_sign	varchar(2)
-,is_notstudent_can_sign	varchar(2)
+    is_notcomm_can_sign    varchar(2) default '1' null,
+    is_notstudent_can_sign varchar(2) default '0' null,
 ,create_persion_name	varchar(20)
 ,create_date	varchar(20)
 ,status	varchar(2)
 ,PRIMARY KEY (activity_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---活动成员关系表
+-- 活动成员关系表
 CREATE TABLE if not exists tc_act_member (
 login_id	varchar(20)
 ,login_name	varchar(20)
@@ -176,4 +178,35 @@ login_id	varchar(20)
 ,create_date	varchar(20)
 ,status	varchar(2)
 ,PRIMARY KEY (login_id,activity_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 权限控制
+CREATE TABLE if not exists td_b_rolefuncright (
+role_code	varchar(20)
+,role_name	varchar(20)
+,update_persion_id	varchar(20)
+,update_persion_name	varchar(20)
+,update_date	varchar(20)
+,menu_id	varchar(20)
+,menu_name	varchar(100)
+,menu_link	varchar(100)
+,menu_des	varchar(500)
+,menu_level varchar(20)
+,parent_menu_id varchar(20)
+,show_order int
+,remark	varchar(500)
+,status	varchar(2)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 留言表
+CREATE TABLE if not exists tc_acct_message (
+msg_id	varchar(20)
+,login_name	varchar(20)
+,flow_id	varchar(20)
+,msg_info	varchar(500)
+,msg_date	varchar(20)
+,status	varchar(2)
+,PRIMARY KEY (msg_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

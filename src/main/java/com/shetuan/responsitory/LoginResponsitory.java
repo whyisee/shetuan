@@ -47,9 +47,8 @@ public interface LoginResponsitory extends JpaRepository<LoginEntity,String> {
      *@version 1.0
      *@used in: LoginResponsitory
      */
-    @Query(value = "select a.* from td_b_rolefuncright a join tc_acct_login b on a.role_id=b.role_id " +
-            "where 1=1 and a.status='1' and b.status='1' " +
-            " b.login_name=? ", nativeQuery = true)
-    List getShowLink(String LoginName);
+    @Query(value = "select a.* from td_b_rolefuncright a " +
+            "where 1=1 and a.status='1' and  a.role_code=? ", nativeQuery = true)
+    List getShowLinkByRoleName(String RoleCode);
 
 }
