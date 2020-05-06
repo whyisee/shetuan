@@ -45,7 +45,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/css/**","/js/**","/images/**","/upload/**")//排除样式、脚本、图片等资源文件
-                .excludePathPatterns("/*.jsp")//首页
+                .excludePathPatterns("/*.jsp","/community/index","/activity/findAll")//首页
                 .excludePathPatterns("/member/login","/member/regist","/member/checkUser")//排除登录,注册页面
                 .excludePathPatterns("/servlet/validateCodeServlet");//排除验证码
 

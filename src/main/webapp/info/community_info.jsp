@@ -3,113 +3,157 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>成员信息</title>
+<title>社团详情</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Exchange Education a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- css files -->
-<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../css/chromagallery.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../css/info.css" rel="stylesheet" type="text/css"   />
+<link href="../../../../../shetuan@20200506/src/main/webapp/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../../../../../shetuan@20200506/src/main/webapp/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../../../../../shetuan@20200506/src/main/webapp/css/chromagallery.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../../../../../shetuan@20200506/src/main/webapp/css/info.css" rel="stylesheet" type="text/css"   />
 <!-- /css files -->
 <!-- fonts -->
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Viga' rel='stylesheet' type='text/css'>
 <!-- /fonts -->
-<link rel="icon" href="../images/pande.png">
+<link rel="icon" href="../../../../../shetuan@20200506/src/main/webapp/images/pande.png">
+<script src="../js/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body id="index.html" data-spy="scroll" data-target=".navbar" data-offset="60">
 <!-- About Section -->
+<div id="communityInfo">
 <section class="about-us">
-	<h3 class="text-center slideanim">社团成员</h3>
+	<h3 class="text-center slideanim">{{commInfoContent.commName}}</h3>
+	<div class="infoInformation">
+		<p class="text-center">社团详情</p>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<p><span>理事长：</span>{{commInfoContent.bossName}}</p>
+					<p><span>创建时间：</span>{{commInfoContent.createDate}}</p>
+					<p><span>特色活动：</span>{{commInfoContent.commSpecialAct}}</p>
+					<p><span>报名参加：</span>{{commInfoContent.createPersionId}}</p>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<p><span>社团简介：</span>{{commInfoContent.commInfo}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<p class="text-center slideanim">成员信息</p>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6 col-md-6">
+			<div class="col-lg-6 col-md-6" v-for="(p,index) in manageInfo" :key="index">
 				<div class="about-details">
 					<div class="row">
 						<div class="col-sm-2 col-xs-12">
-							<img src="../header/about-img1.jpg" class="img-responsive slideanim" alt="about-img">
+							<img src="../../../../../shetuan@20200506/src/main/webapp/header/about-img1.jpg" class="img-responsive slideanim" alt="about-img">
 						</div>
-						<div class="col-sm-10 col-xs-12">						
+						<div class="col-sm-10 col-xs-12">
 							<div class="about-info slideanim">
-								<h5>赵德柱</h5>
-								<p>会长：学生社团会长是学生社团的执行机构，是学生社团的最高行政管理机构。有新生会员队长的任免权；具有管理协会的一切活动的权力；对副会长以及各部长具有监督义务同时也具有对部长的任免权；会长及各职能机构各司其职，共同为学校学生社团的发展贡献力量。</p>
+								<h5>{{p.comm_name}}</h5>
+								<p>会长：{{p.comm_remark}}</p>
 							</div>
 						</div>
 					</div>						
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6">
-				<div class="about-details">
-					<div class="row">
-						<div class="col-sm-2 col-xs-12">
-							<img src="../header/about-img2.jpg" class="img-responsive slideanim" alt="about-img">
-						</div>	
-						<div class="col-sm-10 col-xs-12">
-							<div class="about-info slideanim">
-								<h5>李小花</h5>
-								<p>副会长：协助会长组织协会的日常社团活动，有新生会员队长的推荐权；机动性强，可以肩负部长一职，随时弥补社团的空缺。对副会长以及各部长具有监督的权力。</p>
-							</div>
-						</div>
-					</div>		
-				</div>
-			</div>
 		</div>
-		<div class="row below">
-			<div class="col-lg-6 col-md-6">
-				<div class="about-details">
-					<div class="row">
-						<div class="col-sm-2 col-xs-12">
-							<img src="../header/about-img3.jpg" class="img-responsive slideanim" alt="about-img">
-						</div>
-						<div class="col-sm-10 col-xs-12">
-							<div class="about-info slideanim">
-								<h5>张小美</h5>
-								<p>组织文化部长：负责社团内部的组织、人事的管理工作；负责社团文化建设，通过建立社团品牌文化以树立社团形象；负责监督并协助会长做好各项规章制度的修订与更新工作；负责社团会员的考核评选：学期性：优秀团队、优秀队长、优秀会员；学年性：社团积极份子、年度优秀团队、年度优秀队长、年度优秀会员的评选。</p>
-							</div>
-						</div>
-					</div>		
-				</div>
-			</div>
-			<div class="col-lg-6 col-md-6">
-				<div class="about-details">
-					<div class="row">
-						<div class="col-sm-2 col-xs-12">
-							<img src="../header/about-img4.jpg" class="img-responsive slideanim" alt="about-img">
-						</div>
-						<div class="col-sm-10 col-xs-12">
-							<div class="about-info slideanim">
-								<h5>王大锤</h5>
-								<p>网络宣传部长：负责社团的海报、横幅、喷绘、写真、展板、广播等宣传工作；具有接受社团联培训与联系社团联一起做好宣传的义务；负责社团文化以及社团活动的宣传；负责社团工作简报和活动简报的撰写工作和社团活动的新闻采访工作。社团工作和活动视频制作、技术支持等。</p>
-							</div>
-						</div>
-					</div>		
-				</div>
-			</div>
-		</div>	
+		<p class="moreInfo"><a href="community_info.jsp" style="color: #5bc0de;margin-left: 48%">更多社团成员信息</a></p>
 	</div>
 </section>
 <!-- /About Section -->	
-
+</div>
 <!-- js files -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/SmoothScroll.min.js"></script>
 <!-- js files for gallery -->
 <script src="js/chromagallery.pkgd.min.js"></script>
-	<script type="text/javascript">
+	<%--<script type="text/javascript">
 		$(document).ready(function() 
 		{
 		    $(".mygallery").chromaGallery();
 		});
-	</script>
+	</script>--%>
 <!-- /js files for gallery -->	
 <!-- Back To Top -->
 <script src="../js/backtotop.js"></script>
 <!-- /Back To Top -->
+
+<script>
+    $(document).ready(function() {
+            function GetRequest() {
+            var url = location.search;
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("=");
+                console.log(strs[1]);
+                var testdata={commId:strs[1]}
+                var testDataSecond={comm_id:strs[1]}
+                $.ajax({
+                    url:"/community/commInfo", //请求的url地址
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:"json", //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    data:JSON.stringify(testdata), //参数值
+                    type:"POST", //请求方式
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(req){
+                        info.commInfoContent=req
+                        console.log(info.commInfoContent)
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
+                    }
+                });
+                $.ajax({
+                    url:"/community/findMemberShow", //请求的url地址
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:"json", //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    data:JSON.stringify(testDataSecond), //参数值
+                    type:"POST", //请求方式
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(req){
+                        info.manageInfo=req
+						console.log(req)
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
+                    }
+                });
+            }
+        }
+		GetRequest()
+    })
+	var info = new Vue({
+		el:'#communityInfo',
+		data:{
+			commInfoContent:{},
+			manageInfo:[]
+		},
+		mounted:{
+
+		}
+	})
+
+</script>
+
+
 <script>
 $(document).ready(function(){
   // Add smooth scrolling to all links in navbar + footer link

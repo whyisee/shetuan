@@ -210,7 +210,7 @@ public class MemberController extends BaseController{
                 cookie.setMaxAge(60 * 60 * 24 * 7);
                 response.addCookie(cookie);
                 //DefaultSingletonBeanRegistry;
-                return "/index2";
+                return "/index";
             }else{
                 modelMap.put("info", "密码错误");
             }
