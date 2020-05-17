@@ -59,10 +59,10 @@
 
 					<c:if test="${login == null}">
 						<li class="y-in"><a href="/login.jsp" style="{color:#fffff;}">登陆</a></li>
-						<li ><a href="regist.jsp" style="{color:#fffff;}">注册</a></li>
+						<li><a href="regist.jsp" style="{color:#fffff;}">注册</a></li>
 					</c:if>
 					<c:if test="${login != null}">
-						<li class="y-in"><a href="commManage.jsp">欢迎：${login.loginName }</a></li>
+						<li class="y-in"><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>
 						<li><a href="/member/logout"> | 注销</a></li>
 					</c:if>
 
@@ -174,11 +174,14 @@
                                                 <h3 class="modal-title">提示</h3>
                                             </div>
                                             <div class="modal-body">
-                                                是否确认加入网络协会
+                                                <form>
+                                                    <label control-label style="display: inline-block">请输入申请理由：</label>
+                                                    <textarea class="form-control" rows="2" v-model="joinReasion" style="width: 400px;margin-left: 130px"></textarea>
+                                                </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" @click="replay(p.commId,p.commName,${login.loginName })">确认</button>
                                             </div>
                                         </div>
                                     </div>
@@ -256,7 +259,6 @@
         },
         success:function(req){
             about.activityTitle=req
-            console.log(req)
         },
         complete:function(){
             //请求完成的处理
@@ -270,17 +272,50 @@
         data: {
             commMessage: [],
             activityTitle:[],
-            communityId:''
+            communityId:'',
+            joinReasion:'',//申请理由字段
+            id:'',  //当前用户所在社团ID
+            commClassId:'' //当前用户所在社团分类ID
 		},
          mounted: function () {
             axios.get('/community/index')
                 .then((response)=>{
+                    var userName = '${login.loginName }';
 					this.commMessage=response.data;
+					response.data.filter((items,index)=>{
+					    items.communitys.map((value) =>{
+                            if (userName===value.bossName) {
+                                this.id=value.commId
+                                this.commClassId=value.commClassId
+             }
+                    })
+
+                    })
+					console.log(response.data);
+					console.log('所有社团数据')
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
-        }
+        },
+         methods:{
+            replay(id,name,user){
+                user=user+''
+                var params ={
+                    'commId':id,
+                    'commName':name,
+                    'approLoginName':user,
+                    'approInfo':this.joinReasion
+                }
+                axios.post('/appro/memberAdd',params)
+                    .then((response)=>{
+                    console.log('申请加入成功')
+            })
+            .catch(function (error) {
+                    console.log(error);
+                });
+            }
+         }
     })
 </script>
 <!-- /js files for gallery -->

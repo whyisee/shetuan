@@ -28,8 +28,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }else {//未登录
             //直接重定向到登录页面
-            response.sendRedirect(request.getContextPath()+"/login.jsp");
-            return false;
+            //response.sendRedirect(request.getContextPath()+"/login.jsp");
+            return true;
         }
         //return true;
     }

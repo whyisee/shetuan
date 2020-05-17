@@ -9,16 +9,16 @@
 <meta name="keywords" content="Exchange Education a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- css files -->
-<link href="../../../../../shetuan@20200506/src/main/webapp/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../../../../../shetuan@20200506/src/main/webapp/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../../../../../shetuan@20200506/src/main/webapp/css/chromagallery.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../../../../../shetuan@20200506/src/main/webapp/css/info.css" rel="stylesheet" type="text/css"   />
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/css/chromagallery.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/css/info.css" rel="stylesheet" type="text/css"   />
 <!-- /css files -->
 <!-- fonts -->
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Viga' rel='stylesheet' type='text/css'>
 <!-- /fonts -->
-<link rel="icon" href="../../../../../shetuan@20200506/src/main/webapp/images/pande.png">
+<link rel="icon" href="/images/pande.png">
 <script src="../js/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
@@ -43,14 +43,14 @@
 			</div>
 		</div>
 	</div>
-	<p class="text-center slideanim">成员信息</p>
+	<p class="text-center slideanim">社团管理员信息</p>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 col-md-6" v-for="(p,index) in manageInfo" :key="index">
 				<div class="about-details">
 					<div class="row">
 						<div class="col-sm-2 col-xs-12">
-							<img src="../../../../../shetuan@20200506/src/main/webapp/header/about-img1.jpg" class="img-responsive slideanim" alt="about-img">
+							<img src="/header/about-img1.jpg" class="img-responsive slideanim" alt="about-img">
 						</div>
 						<div class="col-sm-10 col-xs-12">
 							<div class="about-info slideanim">
@@ -62,7 +62,10 @@
 				</div>
 			</div>
 		</div>
-		<p class="moreInfo"><a href="community_info.jsp" style="color: #5bc0de;margin-left: 48%">更多社团成员信息</a></p>
+	</div>
+	<p class="text-center slideanim">社团活动</p>
+	<div class="container activity-title" v-for="(activity,index) in activityTitle" :key="index">
+		<a :href="'activityDetil.jsp?id='+activity.id" target="_blank">{{activity.title}}</a>
 	</div>
 </section>
 <!-- /About Section -->	
@@ -93,7 +96,8 @@
                 strs = str.split("=");
                 console.log(strs[1]);
                 var testdata={commId:strs[1]}
-                var testDataSecond={comm_id:strs[1]}
+                var testDataSecond={commId:strs[1]}
+                /*社团详细信息请求*/
                 $.ajax({
                     url:"/community/commInfo", //请求的url地址
                     contentType: 'application/json;charset=UTF-8',
@@ -115,6 +119,7 @@
                         //请求出错处理
                     }
                 });
+                /*社团主要成员请求*/
                 $.ajax({
                     url:"/community/findMemberShow", //请求的url地址
                     contentType: 'application/json;charset=UTF-8',
@@ -136,6 +141,34 @@
                         //请求出错处理
                     }
                 });
+                /*社团活动标题请求*/
+                $.ajax({
+                    url:"/activity/findAll", //请求的url地址
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:"json", //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    data:JSON.stringify(testDataSecond), //参数值
+                    type:"POST", //请求方式
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(req){
+                        var commName = info.commInfoContent.commName
+                        req.filter((value,index)=>{
+                            info.activityTitle.push({
+                            'title': value.activityName,
+                            'id':value.activityId
+                        })
+                        })
+
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
+                    }
+                });
             }
         }
 		GetRequest()
@@ -144,7 +177,9 @@
 		el:'#communityInfo',
 		data:{
 			commInfoContent:{},
-			manageInfo:[]
+			manageInfo:[],
+			activityTitle:[],
+			activityId:''
 		},
 		mounted:{
 

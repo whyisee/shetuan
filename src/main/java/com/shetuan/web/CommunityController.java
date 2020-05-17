@@ -186,8 +186,11 @@ public class CommunityController extends BaseController {
         //先判断下账号是否有权限
         LoginEntity login=(LoginEntity)session.getAttribute("login");
         String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
+        String approStatus="0";
         //再判断是否有申请通过记录
-        String approStatus=approResponsitory.getApproStatusByID(params.get("approId").toString());
+        if(null!=params.get("approId")){
+            approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
+        }
         if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)) {
             communityResponsitory.deleteById(params.get("commId").toString());
         }
@@ -214,8 +217,11 @@ public class CommunityController extends BaseController {
         //先判断下账号是否有权限
         String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
 
+        String approStatus="0";
         //再判断是否有申请通过记录
-        String approStatus=approResponsitory.getApproStatusByID(params.get("approId").toString());
+        if(null!=params.get("approId")){
+            approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
+        }
         if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             //comm = BeanUtils.mapToBean(params,comm);
 
@@ -276,8 +282,11 @@ public class CommunityController extends BaseController {
         Date d = new Date();
         String dateNowStr = sdf.format(d);
 
+        String approStatus="0";
         //再判断是否有申请通过记录
-        String approStatus=approResponsitory.getApproStatusByID(params.get("approId").toString());
+        if(null!=params.get("approId")){
+            approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
+        }
         if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             //保存团员信息
             CommMemberEntity commMemberEntity=new CommMemberEntity();
@@ -305,8 +314,11 @@ public class CommunityController extends BaseController {
         LoginEntity login=(LoginEntity)session.getAttribute("login");
         String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
 
+        String approStatus="0";
         //再判断是否有申请通过记录
-        String approStatus=approResponsitory.getApproStatusByID(params.get("approId").toString());
+        if(null!=params.get("approId")){
+            approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
+        }
         if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             communityService.memberDel(params);
         }

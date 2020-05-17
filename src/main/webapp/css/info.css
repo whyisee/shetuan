@@ -1,6 +1,6 @@
 /*-- About Us --*/
 section.about-us {
-	padding:100px 0;
+
 }
 section.about-us h3.text-center {
 	color:#948787;
@@ -10,22 +10,42 @@ section.about-us h3.text-center,section.our-services h3.text-center,section.our-
 	padding:20px 0;
 	font-weight:500;
 	font-family: 'Viga', sans-serif;
-	    color: #222;
+	color: #222;
 }
 section.about-us p.text-center,section.our-services p.text-center,section.our-info p.text-center,section.our-gallery p.text-center,section.our-blog p.text-center,section.curriculum p.text-center, section.our-contacts p.text-center  {
-	    font-size: 18px;
-    font-weight: 400;
-    padding: 0px 0 80px;
-    color: #5F5C5C;
+	font-size: 25px;
+	font-weight: 400;
+	padding: 25px 0 35px;
+	color: #5F5C5C;
 }
 section.about-us .row.below {
-    padding-top: 30px;
+	padding-top: 30px;
+}
+/*社团详情样式*/
+.infoInformation .container p{
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 29px;
+	color: #777;
+}
+.infoInformation .container p span{
+	color: black;
 }
 section.about-us .about-info p {
-	    font-size: 15px;
-    font-weight: 400;
-    line-height: 29px;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 29px;
 	/*-- Agile ITS --*/
-    color: #777;
+	color: #777;
+}
+.activity-title a{
+    text-align: center;
+    display: block;
+    color: #2e6da4;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+.activity-title a:hover{
+    color: #8A0B00;
 }
 /*-- /About Us --*/
