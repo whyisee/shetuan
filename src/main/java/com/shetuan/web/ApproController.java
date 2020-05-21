@@ -143,6 +143,7 @@ public class ApproController extends BaseController {
     String commSign(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String, Object> params) throws Exception {
         HttpSession session = request.getSession();
         LoginEntity login = (LoginEntity) session.getAttribute("login");
+        System.out.println(login);
         String login_name = login.getLoginName();
         String login_id = memberResponsitory.getIdByLoginName(login_name);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

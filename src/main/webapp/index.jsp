@@ -181,7 +181,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal" @click="replay(p.commId,p.commName,${login.loginName })">确认</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" @click="replay(p.commId,p.commName,'${login.loginName}')">确认</button>
                                             </div>
                                         </div>
                                     </div>
