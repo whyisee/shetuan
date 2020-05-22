@@ -307,7 +307,7 @@ public class CommunityController extends BaseController {
 
         //再判断是否有申请通过记录
         String approStatus=approResponsitory.getApproStatusByID(params.get("approId").toString());
-        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
+        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             communityService.memberDel(params);
         }
         ModelMap modelMap1 = new ModelMap();

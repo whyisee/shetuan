@@ -63,6 +63,35 @@ public class ApproService {
         return persions;
     }
 
+    public String getApproPrersionName(Map<String,Object> param) throws Exception {
+        SQLParser sqlParser = new SQLParser(param);
+        sqlParser.addSQL(" select a.login_name loginName,a.user_name userName from tc_acct_member a ,tc_acct_role b ");
+        sqlParser.addSQL(" where 1=1 and a.status='1' and b.status='1' and a.login_id=b.login_id ");
+
+        //社团创建/删除审核人--系统管理员角色
+        //社团加入/退出审核人--社团管理员角色
+        //活动创建/删除审核人--系统管理员角色
+        //活动加入/退出审核人--社团管理员角色
+        String approType=param.get("approType").toString();
+
+        //管理员
+        if(approType.equals(ConfigFactory.APPRO_TYPE_COMM_ADD)
+                ||approType.equals(ConfigFactory.APPRO_TYPE_COMM_DEL)
+                ||approType.equals(ConfigFactory.APPRO_TYPE_ACT_ADD)
+                ||approType.equals(ConfigFactory.APPRO_TYPE_ACT_DEL)){
+            sqlParser.addSQL( " and b.role_id ='100' " );
+
+        }else if(approType.equals(ConfigFactory.APPRO_TYPE_COMM_SIGN)
+                ||approType.equals(ConfigFactory.APPRO_TYPE_COMM_QUIT)
+                ||approType.equals(ConfigFactory.APPRO_TYPE_ACT_SIGN)
+                ||approType.equals(ConfigFactory.APPRO_TYPE_ACT_QUIT)){
+            sqlParser.addSQL( " and b.role_id ='200' " );
+            sqlParser.addSQL( " and b.login_name in (select login_name from tc_comm_member where status='1' and comm_id =:commId ) " );
+        }
+        List<Map<String,String>>  persions= manageSqlTools.queryList(sqlParser,param, null,null);
+        return persions.size()>0 ? persions.get(0).get("loginName") : "admin";
+    }
+
     public int saveAppro(Map<String,Object> param) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
@@ -95,6 +124,7 @@ public class ApproService {
         sqlParser.addSQL(" where 1=1 and a.status='1' and appro_status='0' ");
         sqlParser.addSQL(" and flow_id =:flowId ");
         sqlParser.addSQL(" and appro_type =:approType ");
+        sqlParser.addSQL(" and create_login_name =:loginName ");
 
 
         return manageSqlTools.queryList(sqlParser,param, null,null).size();
