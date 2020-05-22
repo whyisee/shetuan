@@ -49,6 +49,10 @@ public class ApproEntity {
     @Column(name="appro_type")
     private String approType;
 
+
+    @Column(name="appro_remark")
+    private String approRemark;
+
     @Column(name="status")
     private String status;
 }

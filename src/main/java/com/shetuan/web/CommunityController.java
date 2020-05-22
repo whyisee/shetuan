@@ -191,7 +191,7 @@ public class CommunityController extends BaseController {
         if(null!=params.get("approId")){
             approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
         }
-        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)) {
+        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)) {
             communityResponsitory.deleteById(params.get("commId").toString());
         }
         ModelMap modelMap1 = new ModelMap();
@@ -222,7 +222,7 @@ public class CommunityController extends BaseController {
         if(null!=params.get("approId")){
             approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
         }
-        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
+        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN )||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             //comm = BeanUtils.mapToBean(params,comm);
 
             //CommunityEntity comm = new CommunityEntity();
@@ -257,7 +257,7 @@ public class CommunityController extends BaseController {
         //先判断下账号是否有权限,管理员或者社团管理员可以修改
         LoginEntity login=(LoginEntity)session.getAttribute("login");
         String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
-        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)) {
+        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)) {
 
             comm = BeanUtils.mapToBean(params,comm);
             CommunityEntity comm2 = communityResponsitory.findById(params.get("commId").toString()).get();
@@ -287,7 +287,7 @@ public class CommunityController extends BaseController {
         if(null!=params.get("approId")){
             approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
         }
-        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
+        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             //保存团员信息
             CommMemberEntity commMemberEntity=new CommMemberEntity();
             commMemberEntity= BeanUtils.mapToBean(params,commMemberEntity);
@@ -313,13 +313,15 @@ public class CommunityController extends BaseController {
         //先判断下账号是否有权限
         LoginEntity login=(LoginEntity)session.getAttribute("login");
         String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
-
+        String login_name = login.getLoginName();
+        String login_id = memberResponsitory.getIdByLoginName(login_name);
+        params.put("loginId",login_id);
         String approStatus="0";
         //再判断是否有申请通过记录
         if(null!=params.get("approId")){
             approStatus = approResponsitory.getApproStatusByID(params.get("approId").toString());
         }
-        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
+        if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)||approStatus.equals(ConfigFactory.APPRO_STATUS)){
             communityService.memberDel(params);
         }
         ModelMap modelMap1 = new ModelMap();

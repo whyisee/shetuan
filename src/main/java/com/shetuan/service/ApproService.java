@@ -95,6 +95,7 @@ public class ApproService {
         sqlParser.addSQL(" where 1=1 and a.status='1' and appro_status='0' ");
         sqlParser.addSQL(" and flow_id =:flowId ");
         sqlParser.addSQL(" and appro_type =:approType ");
+        sqlParser.addSQL(" and create_login_name =:loginame ");
 
 
         return manageSqlTools.queryList(sqlParser,param, null,null).size();

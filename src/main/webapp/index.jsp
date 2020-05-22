@@ -63,6 +63,7 @@
 					</c:if>
 					<c:if test="${login != null}">
 						<li class="y-in"><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>
+						<%--<li class="y-in"><a href="adminManage.jsp">欢迎：${login.loginName }</a></li>--%>
 						<li><a href="/member/logout"> | 注销</a></li>
 					</c:if>
 
