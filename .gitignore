@@ -6,3 +6,7 @@
 /.externalToolBuilders/
 /WebContent/WEB-INF/classes/
 /.idea/
+
+*.iml
+*.ipr
+*.iws

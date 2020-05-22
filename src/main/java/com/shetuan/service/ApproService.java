@@ -34,7 +34,7 @@ public class ApproService {
     private ApproResponsitory approResponsitory;
 
 
-    public List getApproPrersion(Map<String,Object> param) throws Exception {
+    public List<Map<String,String >> getApproPrersion(Map<String,Object> param) throws Exception {
         SQLParser sqlParser = new SQLParser(param);
         sqlParser.addSQL(" select a.login_name loginName,a.user_name userName from tc_acct_member a ,tc_acct_role b ");
         sqlParser.addSQL(" where 1=1 and a.status='1' and b.status='1' and a.login_id=b.login_id ");

@@ -98,6 +98,10 @@ public class ApproController extends BaseController {
         Date d = new Date();
         String dateNowStr = sdf.format(d);
 
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
         CommunityEntity comm = new CommunityEntity();
         comm = BeanUtils.mapToBean(params, comm);
 
@@ -152,6 +156,10 @@ public class ApproController extends BaseController {
         params.put("loginName",login_name);
         params.put("loginId",login_id);
 
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
         //保存审核信息
         params.put("flowId",params.get("commId"));
         params.put("approName","加入社团申请");
@@ -197,6 +205,11 @@ public class ApproController extends BaseController {
         params.put("loginName",login_name);
         params.put("loginId",login_id);
 
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
+
         //保存审核信息
         params.put("flowId",params.get("commId"));
         params.put("approName","解散社团申请");
@@ -228,6 +241,10 @@ public class ApproController extends BaseController {
         String dateNowStr = sdf.format(d);
         params.put("loginName",login_name);
         params.put("loginId",login_id);
+
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
 
         //保存审核信息
         params.put("flowId",params.get("commId"));
@@ -269,6 +286,11 @@ public class ApproController extends BaseController {
         params.put("loginName",login_name);
         params.put("loginId",login_id);
         String activityId=manageSqlTools.getSeqId(ConfigFactory.SEQ_APPRO_ID);
+
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
         //保存审核信息
         params.put("flowId",activityId);
         params.put("approName","发布活动申请");
@@ -311,6 +333,11 @@ public class ApproController extends BaseController {
         String dateNowStr = sdf.format(d);
         params.put("loginName",login_name);
         params.put("loginId",login_id);
+
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
         //保存审核信息
         params.put("flowId",params.get("activityId"));
         params.put("approName","报名活动申请");
@@ -350,6 +377,11 @@ public class ApproController extends BaseController {
         String dateNowStr = sdf.format(d);
         params.put("loginName",login_name);
         params.put("loginId",login_id);
+
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
         //保存审核信息
         params.put("flowId",params.get("activityId"));
         params.put("approName","报名活动申请");
@@ -377,6 +409,11 @@ public class ApproController extends BaseController {
         String login_id = memberResponsitory.getIdByLoginName(login_name);
         params.put("loginName",login_name);
         params.put("loginId",login_id);
+
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
