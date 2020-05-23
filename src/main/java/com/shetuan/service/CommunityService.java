@@ -92,7 +92,10 @@ public class CommunityService {
         commMemberEntity= BeanUtils.mapToBean(param,commMemberEntity);
         PrimaryKeyLoginCommID primaryKeyLoginCommID = new PrimaryKeyLoginCommID();
         primaryKeyLoginCommID.setCommId(param.get("commId").toString());
-        primaryKeyLoginCommID.setLoginId(param.get("loginId").toString());
+        //primaryKeyLoginCommID.setLoginId(param.get("loginId").toString());
+        primaryKeyLoginCommID.setLoginId(param.get("dealLoginId").toString());
+
+
 
         commMemberResponsitory.deleteById(primaryKeyLoginCommID);
 

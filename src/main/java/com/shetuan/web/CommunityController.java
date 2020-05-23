@@ -315,6 +315,8 @@ public class CommunityController extends BaseController {
         String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
         String login_name = login.getLoginName();
         String login_id = memberResponsitory.getIdByLoginName(login_name);
+        //params.put("dealLoginId",dealLoginId);
+
         params.put("loginId",login_id);
         String approStatus="0";
         //再判断是否有申请通过记录
@@ -356,7 +358,9 @@ public class CommunityController extends BaseController {
         String login_id = memberResponsitory.getIdByLoginName(login_name);
         PrimaryKeyLoginCommID primaryKeyLoginCommID=new PrimaryKeyLoginCommID();
         primaryKeyLoginCommID.setCommId(params.get("commId").toString());
-        primaryKeyLoginCommID.setLoginId(login_id);
+        //primaryKeyLoginCommID.setLoginId(login_id);
+        primaryKeyLoginCommID.setLoginId(params.get("dealLoginId").toString());
+
         CommMemberEntity commM=commMemberResponsitory.findById(primaryKeyLoginCommID).get();;
         CommMemberEntity  comm=new CommMemberEntity();
         comm = BeanUtils.mapToBean(params,comm);
