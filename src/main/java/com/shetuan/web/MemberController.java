@@ -300,7 +300,7 @@ public class MemberController extends BaseController{
         }
         String loginName=params.get("loginName")==null?null:params.get("loginName").toString();
         String loginNameNow=loginEntity.getLoginName();
-        String roleId="";
+ /*       String roleId="";
         if(null!=loginName&&loginName.length()>0&&!loginName.equals(loginNameNow)){
             roleId=loginResponsitory.getRoleIdbyLoginName(loginNameNow);
             if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)){
@@ -308,7 +308,8 @@ public class MemberController extends BaseController{
             }
         }else{
             memberEntity=memberResponsitory.findByLoginName(loginNameNow).get(0);
-        }
+        }*/
+        memberEntity=memberResponsitory.findByLoginName(loginName).get(0);
 
         return memberEntity;
     }
@@ -324,7 +325,7 @@ public class MemberController extends BaseController{
             return memberEntity;
         }
         String loginName=params.get("loginName")==null?null:params.get("loginName").toString();
-        String loginNameNow=loginEntity.getLoginName();
+ /*       String loginNameNow=loginEntity.getLoginName();
         String roleId="";
         if(null!=loginName&&loginName.length()>0&&!loginName.equals(loginNameNow)){
             roleId=loginResponsitory.getRoleIdbyLoginName(loginNameNow);
@@ -333,7 +334,9 @@ public class MemberController extends BaseController{
             }
         }else{
             memberEntity=memberResponsitory.findByLoginName(loginNameNow).get(0);
-        }
+        }*/
+        memberEntity=memberResponsitory.findByLoginName(loginName).get(0);
+
         return memberEntity;
     }
     @RequestMapping("/logout")

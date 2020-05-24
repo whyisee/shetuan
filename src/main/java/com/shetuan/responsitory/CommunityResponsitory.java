@@ -29,10 +29,10 @@ public interface CommunityResponsitory extends JpaRepository<CommunityEntity,Str
             "           END                      AS num,                   " +
             "       @class_no /**/ \\:=/**/ a.comm_class_id AS class_no               " +
             "     from tc_comm_community a                                 " +
-            "      where 1=1 and a.status='1'  and a.show_order_no>0       " +
+            "      where 1=1 and a.status='1'         " +
             "    ORDER BY a.comm_class_id                                  " +
             "              ) x                                             " +
-            " where x.num <= 4                                            " +
+            "                                            " +
             "", nativeQuery = true)
     List<CommunityEntity> getIndexCommunity();
 

@@ -15,7 +15,6 @@
 	<meta name="keywords" content="Exchange Education a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- css files -->
-	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/chromagallery.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -28,8 +27,8 @@
 	</style>
 	<!-- /css files -->
 	<!-- fonts -->
-	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Viga' rel='stylesheet' type='text/css'>
+	<%--<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Viga' rel='stylesheet' type='text/css'>--%>
 	<!-- /fonts -->
 	<!-- js files -->
 	<script src="js/modernizr.custom.js"></script>
@@ -39,8 +38,8 @@
 	<script src="js/backtotop.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.min.js"></script>
 	<!-- /js files -->
 </head>
 
@@ -62,9 +61,22 @@
 						<li><a href="regist.jsp" style="{color:#fffff;}">注册</a></li>
 					</c:if>
 					<c:if test="${login != null}">
-						<%--<li class="y-in"><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>--%>
-						<li class="y-in"><a href="adminManage.jsp">欢迎：${login.loginName }</a></li>
-						<li><a href="/member/logout"> | 注销</a></li>
+						<%--<li class="y-in"><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>
+						<li class="y-in"><a :href="'adminManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>
+						<li><a href="/member/logout"> | 注销</a></li>--%>
+
+                        <div class="btn-group" style="z-index: 1000">
+                            <button class="btn btn-default btn-lg dropdown-toggle y-in" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                欢迎：${login.loginName } <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="adminManage.jsp">管理系统</a></li>
+                                <li><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">系统管理</a></li></li>
+								<li><a href="checkUserInfo.jsp?loginName=${login.loginName }">查看个人信息</a></li>
+								<li><a href="editCode.jsp">修改密码</a></li>
+                            </ul>
+                        </div>
+                        <li><a href="/member/logout"> | 注销</a></li>
 					</c:if>
 
 				</ul>
@@ -219,18 +231,6 @@
 </div>
 <!--/notice-->
 <!-- Footer Section -->
-<section class="footer">
-	<h2 class="text-center">THANKS FOR VISITING US</h2>
-	<p>
-		<a href="http://www.neau.edu.cn/" target="_blank">东北农业大学官网</a>|
-		<a href="http://jwc.neau.edu.cn/" target="_blank">东北农业大学教务处</a>|
-		<a href="http://nic.neau.edu.cn/" target="_blank">东北农业大学网络中心</a>
-	</p><br>
-	<p>QQ群号:676521839</p>
-	<div id="Result">
-	</div>
-
-</section>
 <!-- /Footer Section -->
 <!-- Back To Top -->
 <a href="#0" class="cd-top">Top</a>
@@ -245,7 +245,6 @@
         $(".mygallery").chromaGallery();
     });
 </script>
-
 <script>
     var testdata={}
     $.ajax({
@@ -286,8 +285,10 @@
 					response.data.filter((items,index)=>{
 					    items.communitys.map((value) =>{
                             if (userName===value.bossName) {
+                 				console.log('初始化了')
                                 this.id=value.commId
                                 this.commClassId=value.commClassId
+				 				console.log(this.commClassId+'社团分内IG')
              }
                     })
 
@@ -397,16 +398,6 @@
         };
         var sa = new ScrollAction($('.noticeList'), 30, true);
         sa.start();
-    });
-
-    $('.speech>p').speech({
-        "speech": true, //通过点击链接播报，还是直接播报
-        "lang": "zh", //语言
-        "speed": 3, //语速
-        "sWidth": 16, //链接按钮的宽度
-        "sHeight": 16, //链接按钮的高度
-        "https": true, //启用https
-        "bg": "./images/speech.jpg", //链接按钮的背景图片
     });
 </script>
 <!-- /js files -->

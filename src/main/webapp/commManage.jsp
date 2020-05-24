@@ -11,10 +11,10 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/commManage.css" rel="stylesheet" type="text/css"/>
     <title>社团管理</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
 </head>
 <body>
 <div id="manage">

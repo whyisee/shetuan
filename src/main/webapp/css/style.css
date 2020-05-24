@@ -81,7 +81,7 @@ section.top-bar ul.social-icons1 {
 	position:absolute;
 	z-index:99;
 	top: 20px;
-	right:105px;
+	right:-10px;
 }
 section.top-bar ul.social-icons1 li {
 	display:inline;

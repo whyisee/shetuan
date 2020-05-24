@@ -206,7 +206,9 @@ public class CommunityController extends BaseController {
     String commAdd(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object> params ) throws Exception {
         HttpSession session = request.getSession();
         LoginEntity login = (LoginEntity) session.getAttribute("login");
-        String login_name = login.getLoginName();
+        //String login_name = login.getLoginName();
+        String login_name = params.get("loginName").toString();
+
         String login_id = memberResponsitory.getIdByLoginName(login_name);
         String user_name=memberResponsitory.getUserNameByLoginName(login_name);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -229,7 +231,7 @@ public class CommunityController extends BaseController {
             comm = BeanUtils.mapToBean(params, comm);
 
             comm.setStatus("1");//
-            String commId = manageSqlTools.getSeqId("ConfigFactory.SEQ_COMM_ID");
+            String commId = manageSqlTools.getSeqId(ConfigFactory.SEQ_COMM_ID);
             comm.setCommId(commId);
             comm.setCreateDate(dateNowStr);
             comm.setCommPeopleNum("1");
