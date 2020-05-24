@@ -71,20 +71,20 @@ $.ajax({
 
 function testinterface(){
 //loginName:"333",
-    var testdata={loginName:"xxx",userName:"test",studentId:"123123",
+    var testdata={loginName:"333",userName:"test",studentId:"123123",
         sex:"男",inDate:"2019",college:"计算机",specially:"软件",
         phone:"123456",address:"1#23",email:"9070@qq.com",
-        passwdOld:"333",passwdNew:"123",commId:"100000",activityId:"100001",
+        passwdOld:"333",passwdNew:"123",commId:"100031",activityId:"100001",
         commName:"网络协会2",commInfo:"test",commClassId:"100000",approInfo:"测试",
         approType:"22",activityName:"测试活动",activityDate:"20200417",activityAddr:"402"
-        ,approId:"100003",approStatus:"1",
+        ,approId:"100003",approStatus:"1",newRole:"社团管理员",
         page:{pageSize:"10",pageCurrent:"1"}
 
     }
     var testdata2=JSON.stringify(testdata);
     console.log(testdata2)
     $.ajax({
-        url:"/appro/memberAdd", //请求的url地址
+        url:"/community/roleChange", //请求的url地址
         contentType: 'application/json;charset=UTF-8',
         dataType:"json", //返回格式为json
         async:true,//请求是否异步，默认为异步，这也是ajax重要特性

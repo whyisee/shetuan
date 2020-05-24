@@ -51,4 +51,8 @@ public interface LoginResponsitory extends JpaRepository<LoginEntity,String> {
             "where 1=1 and a.status='1' and  a.role_code=? ", nativeQuery = true)
     List getShowLinkByRoleName(String RoleCode);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update  tc_acct_role a set role_id=?2 where login_name=?1 and a.status='1' ", nativeQuery = true)
+    int updateAcctRole(String LoginName,String roleCode);
 }

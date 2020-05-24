@@ -404,5 +404,50 @@ public class CommunityController extends BaseController {
     }
 
 
+    @RequestMapping(value="/roleChange",method = {RequestMethod.POST})
+    public @ResponseBody
+    String roleChange(ModelMap modelMap, HttpServletRequest request, @RequestBody Map<String,Object> params , HttpSession session) throws Exception {
+        ModelMap modelMap1=new ModelMap();
+        //两种情况,1.普通成员变为社团管理员,先将原来的管理员变为普通成员
+        //2.社团管理员变为普通成员
+
+        //
+        String newRole = params.get("newRole").toString();
+        String loginName = params.get("loginName").toString();
+        String commId = params.get("commId").toString();
+        //String login_id = memberResponsitory.getIdByLoginName(loginName);
+        MemberEntity memberEntity = memberResponsitory.findByLoginName(loginName).get(0);
+        CommunityEntity comm = communityResponsitory.getOne(commId);
+        PrimaryKeyLoginCommID primaryKeyLoginCommID = new PrimaryKeyLoginCommID();
+        primaryKeyLoginCommID.setCommId(commId);
+        primaryKeyLoginCommID.setLoginId(memberEntity.getLoginId());
+        CommMemberEntity commM = commMemberResponsitory.getOne(primaryKeyLoginCommID);
+
+        if ("社团管理员".equals(newRole)){
+            comm.setBossId(memberEntity.getLoginId());
+            comm.setBossName(memberEntity.getUserName());
+            loginResponsitory.updateAcctRole(loginName,ConfigFactory.ROLE_CODE_COMM_ADMIN);
+            commM.setCommWorkerId("101");
+            commM.setCommWorker("会长");
+            commMemberResponsitory.save(commM);
+
+
+        }else if ("普通成员".equals(newRole)){
+            comm.setBossId("");
+            comm.setBossName("");
+            loginResponsitory.updateAcctRole(loginName,ConfigFactory.ROLE_CODE_PERSION);
+            commM.setCommWorkerId("0");
+            commM.setCommWorkerId("普通团员");
+            commMemberResponsitory.save(commM);
+        }
+        communityResponsitory.save(comm);
+
+        modelMap1.put("status","0");
+        modelMap1.put("info","修改成功");
+
+        return JSONObject.toJSON(modelMap1).toString();
+    }
+
+
 
 }
