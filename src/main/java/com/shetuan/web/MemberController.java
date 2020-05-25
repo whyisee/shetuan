@@ -148,10 +148,13 @@ public class MemberController extends BaseController{
 
 
         modelMap.put("login", login);
+        modelMap.put("roleId", ConfigFactory.ROLE_CODE_PERSION);
+
         session.setAttribute("login",login);
         //设置权限信息
         List funcright=memberService.getShowLinkByRoleName(ConfigFactory.ROLE_CODE_PERSION);
         session.setAttribute("funcright",funcright);
+        session.setAttribute("roleId",ConfigFactory.ROLE_CODE_PERSION);
 
         return "/index";
     }
@@ -199,8 +202,11 @@ public class MemberController extends BaseController{
                 modelMap.put("info", "OK");
                 modelMap.put("roleId",roleId);
                 modelMap.put("login", loginEntity);
+
                 //设置用户信息
                 session.setAttribute("login",loginEntity);
+                session.setAttribute("roleId",roleId);
+
                 //设置权限信息
                 List funcright= memberService.getShowLinkByRoleName(roleId);
                 session.setAttribute("funcright",funcright);

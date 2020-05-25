@@ -1,26 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>社团详情</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Exchange Education a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- css files -->
-<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/css/chromagallery.css" rel="stylesheet" type="text/css" media="all" />
 <link href="/css/info.css" rel="stylesheet" type="text/css"   />
 <!-- /css files -->
 <!-- fonts -->
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Viga' rel='stylesheet' type='text/css'>
-<!-- /fonts -->
-<link rel="icon" href="/images/pande.png">
-<script src="../js/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/vue.min.js"></script>
+<script src="/js/axios.min.js"></script>
 </head>
 <body id="index.html" data-spy="scroll" data-target=".navbar" data-offset="60">
 <!-- About Section -->
@@ -67,15 +61,27 @@
 	<div class="container activity-title" v-for="(activity,index) in activityTitle" :key="index">
 		<a :href="'activityDetil.jsp?id='+activity.id" target="_blank">{{activity.title}}</a>
 	</div>
+	<p class="text-center slideanim">留言</p>
+	<c:if test="${roleId == '100'}">
+		<div class="container activity-title">
+		<div class="form-group" style="margin-left: 220px;display: flex">
+			<label class="control-label title">请输入留言内容：</label>
+			<div style="width: 500px">
+				<textarea class="form-control input" v-model="message" placeholder="请输入对社团留言内容" rows="5"></textarea>
+			</div>
+		</div>
+		<button type="button" class="btn btn-info" style="width: 200px;margin-left: 485px;margin-bottom: 20px" @click="saveMessage">保存</button>
+		</div>
+	</c:if>
+	<c:if test="${roleId == '200'}">
+		<div class="container activity-title" style="text-align: center;margin-bottom: 20px">
+			<span v-for="(p,index) in messageList" :key="index" v-if="p.msgInfo">{{p.msgInfo}}</span>
+		</div>
+	</c:if>
 </section>
 <!-- /About Section -->	
 </div>
 <!-- js files -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/SmoothScroll.min.js"></script>
-<!-- js files for gallery -->
-<script src="js/chromagallery.pkgd.min.js"></script>
 	<%--<script type="text/javascript">
 		$(document).ready(function() 
 		{
@@ -84,7 +90,6 @@
 	</script>--%>
 <!-- /js files for gallery -->	
 <!-- Back To Top -->
-<script src="../js/backtotop.js"></script>
 <!-- /Back To Top -->
 
 <script>
@@ -95,6 +100,7 @@
                 var str = url.substr(1);
                 strs = str.split("=");
                 console.log(strs[1]);
+                info.commId = strs[1]
                 var testdata={commId:strs[1]}
                 var testDataSecond={commId:strs[1]}
                 /*社团详细信息请求*/
@@ -169,6 +175,29 @@
                         //请求出错处理
                     }
                 });
+                /*查询留言内容*/
+                $.ajax({
+                    url:"/message/list", //请求的url地址
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:"json", //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    data:JSON.stringify(testDataSecond), //参数值
+                    type:"POST", //请求方式
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(req){
+                        console.log('查询留言成功')
+						info.messageList = req
+                        console.log(req)
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
+                    }
+                });
             }
         }
 		GetRequest()
@@ -179,47 +208,31 @@
 			commInfoContent:{},
 			manageInfo:[],
 			activityTitle:[],
-			activityId:''
+			activityId:'',
+			commId:'',
+            message:'',//留言内容,
+			messageList:[]
 		},
 		mounted:{
+		},
+		methods:{
+            saveMessage(){
+                console.log('保存留言成功')
+				let params = {
+                    flowId:this.commId,
+                    msgInfo:this.message
+				}
+                axios.post('/message/add',params)
+                    .then((response) => {
+                    console.log('保存留言成功')
+            	}).catch(function (error) {
+                    console.log(error);
+                });
 
+			}
 		}
 	})
 
-</script>
-
-
-<script>
-$(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-  // Store hash
-  var hash = this.hash;
-
-  // Using jQuery's animate() method to add smooth page scroll
-  // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-  $('html, body').animate({
-    scrollTop: $(hash).offset().top
-  }, 900, function(){
-
-    // Add hash (#) to URL when done scrolling (default click behavior)
-    window.location.hash = hash;
-    });
-  });
-})
-</script>
-<script>
-$(window).scroll(function() {
-  $(".slideanim").each(function(){
-    var pos = $(this).offset().top;
-
-    var winTop = $(window).scrollTop();
-    if (pos < winTop + 600) {
-      $(this).addClass("slide");
-    }
-  });
-});
 </script>
 <!-- /js files -->
 </body>

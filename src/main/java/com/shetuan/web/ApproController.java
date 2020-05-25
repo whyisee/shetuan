@@ -98,6 +98,10 @@ public class ApproController extends BaseController {
         Date d = new Date();
         String dateNowStr = sdf.format(d);
 
+        //保存审核信息
+        //
+        params.put("approName","社团创建申请");
+        params.put("approType",ConfigFactory.APPRO_TYPE_COMM_ADD);
         List<Map<String,String>> persions=approService.getApproPrersion(params);
         String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
         params.put("approLoginName",approLoginName);
@@ -116,10 +120,7 @@ public class ApproController extends BaseController {
         comm.setCreatePersionName(login_name);
         //保存社团信息
         communityResponsitory.save(comm);
-        //保存审核信息
         params.put("flowId",commId);
-        params.put("approName","社团创建申请");
-        params.put("approType",ConfigFactory.APPRO_TYPE_COMM_ADD);
         approService.saveAppro(params);
 
         ModelMap modelMap1 = new ModelMap();
@@ -155,15 +156,15 @@ public class ApproController extends BaseController {
         String dateNowStr = sdf.format(d);
         params.put("loginName",login_name);
         params.put("loginId",login_id);
-
-        List<Map<String,String>> persions=approService.getApproPrersion(params);
-        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
-        params.put("approLoginName",approLoginName);
-
         //保存审核信息
         params.put("flowId",params.get("commId"));
         params.put("approName","加入社团申请");
         params.put("approType",ConfigFactory.APPRO_TYPE_COMM_SIGN);
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
+
         int isHaveAppro=approService.getIsHaveAppro(params);
         if(isHaveAppro>0){
             ModelMap modelMap1 = new ModelMap();
@@ -205,6 +206,11 @@ public class ApproController extends BaseController {
         params.put("loginName",login_name);
         params.put("loginId",login_id);
 
+        //保存审核信息
+        params.put("flowId",params.get("commId"));
+        params.put("approName","退出社团申请");
+        params.put("approType",ConfigFactory.APPRO_TYPE_COMM_QUIT);
+
         List<Map<String,String>> persions=approService.getApproPrersion(params);
         String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
         params.put("approLoginName",approLoginName);
@@ -242,14 +248,16 @@ public class ApproController extends BaseController {
         params.put("loginName",login_name);
         params.put("loginId",login_id);
 
-        List<Map<String,String>> persions=approService.getApproPrersion(params);
-        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
-        params.put("approLoginName",approLoginName);
-
         //保存审核信息
         params.put("flowId",params.get("commId"));
         params.put("approName","退出社团申请");
         params.put("approType",ConfigFactory.APPRO_TYPE_COMM_QUIT);
+
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
+
         int isHaveAppro=approService.getIsHaveAppro(params);
         if(isHaveAppro>0){
             ModelMap modelMap1 = new ModelMap();
@@ -286,15 +294,16 @@ public class ApproController extends BaseController {
         params.put("loginName",login_name);
         params.put("loginId",login_id);
         String activityId=manageSqlTools.getSeqId(ConfigFactory.SEQ_APPRO_ID);
+        //保存审核信息
+        params.put("flowId",activityId);
+        params.put("approName","发布活动申请");
+        params.put("approType",ConfigFactory.APPRO_TYPE_ACT_ADD);
 
         List<Map<String,String>> persions=approService.getApproPrersion(params);
         String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
         params.put("approLoginName",approLoginName);
 
-        //保存审核信息
-        params.put("flowId",activityId);
-        params.put("approName","发布活动申请");
-        params.put("approType",ConfigFactory.APPRO_TYPE_ACT_ADD);
+
         int isHaveAppro=approService.getIsHaveAppro(params);
         if(isHaveAppro>0){
             ModelMap modelMap1 = new ModelMap();
@@ -334,14 +343,17 @@ public class ApproController extends BaseController {
         params.put("loginName",login_name);
         params.put("loginId",login_id);
 
-        List<Map<String,String>> persions=approService.getApproPrersion(params);
-        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
-        params.put("approLoginName",approLoginName);
 
         //保存审核信息
         params.put("flowId",params.get("activityId"));
         params.put("approName","报名活动申请");
         params.put("approType",ConfigFactory.APPRO_TYPE_ACT_SIGN);
+
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
+
         int isHaveAppro=approService.getIsHaveAppro(params);
         if(isHaveAppro>0){
             ModelMap modelMap1 = new ModelMap();
@@ -377,15 +389,15 @@ public class ApproController extends BaseController {
         String dateNowStr = sdf.format(d);
         params.put("loginName",login_name);
         params.put("loginId",login_id);
-
-        List<Map<String,String>> persions=approService.getApproPrersion(params);
-        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
-        params.put("approLoginName",approLoginName);
-
         //保存审核信息
         params.put("flowId",params.get("activityId"));
         params.put("approName","报名活动申请");
         params.put("approType",ConfigFactory.APPRO_TYPE_ACT_QUIT);
+        List<Map<String,String>> persions=approService.getApproPrersion(params);
+        String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
+        params.put("approLoginName",approLoginName);
+
+
         int isHaveAppro=approService.getIsHaveAppro(params);
         if(isHaveAppro>0){
             ModelMap modelMap1 = new ModelMap();
@@ -409,7 +421,10 @@ public class ApproController extends BaseController {
         String login_id = memberResponsitory.getIdByLoginName(login_name);
         params.put("loginName",login_name);
         params.put("loginId",login_id);
-
+        //保存审核信息
+        params.put("flowId",params.get("activityId"));
+        params.put("approName","终止活动申请");
+        params.put("approType",ConfigFactory.APPRO_TYPE_ACT_DEL);
         List<Map<String,String>> persions=approService.getApproPrersion(params);
         String approLoginName= persions.size() > 0 ? persions.get(0).get("loginName") :"admin";
         params.put("approLoginName",approLoginName);
@@ -419,10 +434,7 @@ public class ApproController extends BaseController {
         Date d = new Date();
         String dateNowStr = sdf.format(d);
 
-        //保存审核信息
-        params.put("flowId",params.get("activityId"));
-        params.put("approName","终止活动申请");
-        params.put("approType",ConfigFactory.APPRO_TYPE_ACT_DEL);
+
         int isHaveAppro=approService.getIsHaveAppro(params);
         if(isHaveAppro>0){
             ModelMap modelMap1 = new ModelMap();

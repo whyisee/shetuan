@@ -40,6 +40,7 @@
 	<script src="js/SmoothScroll.min.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script src="js/axios.min.js"></script>
+	<script src="js/sweetalert.min.js"></script>
 	<!-- /js files -->
 </head>
 
@@ -288,7 +289,6 @@
                  				console.log('初始化了')
                                 this.id=value.commId
                                 this.commClassId=value.commClassId
-				 				console.log(this.commClassId+'社团分内IG')
              }
                     })
 

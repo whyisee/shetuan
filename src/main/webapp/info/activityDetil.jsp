@@ -6,11 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>活动详情</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
-<script src="../js/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/vue.min.js"></script>
 <link href="/css/activityDetil.css" type="text/css" rel="stylesheet" />
- <script src="../js/bootstrap.min.js"></script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ <script src="/js/bootstrap.min.js"></script>
+ <script src="/js/axios.min.js"></script>
+ <script src="/js/sweetalert.min.js"></script>
 </head>
 <body>
 <div id="acInfo">
@@ -70,6 +71,7 @@
                 axios.post('/appro/actSign',this.Id)
                     .then((response)=>{
                     console.log('申请加入活动成功')
+                    swal("申请加入活动成功");
             })
             .catch(function (error) {
                     console.log(error);
