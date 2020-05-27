@@ -15,6 +15,19 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
+    <script src="js/user_info.js"></script>
+
+    <script src="js/sweetalert.min.js"></script>
+    <style type="text/css">
+        .commGroup{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            width: 350px !important;
+        }
+    </style>
 </head>
 <body>
 <div id="manage">
@@ -34,30 +47,30 @@
                 <div id="home" class="tab-pane fade in active">
                     <h3>账号权限管理</h3>
                     <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">社团名称：</label>
-                            <select class="form-control" @change="changeComm($event)">
+                        <div class="form-group commGroup">
+                            <label class="control-label">社团名称：</label>
+                            <select class="form-control box" @change="changeComm($event)">
                                 <option value="1">请选择</option>
                                 <option v-for="(p,index) in activityList" :key="index" :value="p.commId">{{p.commName}}</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">社团成员：</label>
-                            <select class="form-control" @change="changeMemeber($event)">
+                        <div class="form-group commGroup">
+                            <label class="control-label">社团成员：</label>
+                            <select class="form-control box" @change="changeMemeber($event)">
                                 <option value="1">请选择</option>
                                 <option v-for="(p,index) in memberList" :key="index" :value="p.login_name">{{p.login_name}}</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">成员角色：</label>
-                            <select class="form-control" @change="changePlayer($event)">
+                        <div class="form-group commGroup">
+                            <label class="control-label">成员角色：</label>
+                            <select class="form-control box" @change="changePlayer($event)">
                                 <option value="1">请选择</option>
                                 <option value="2">社团管理员</option>
                                 <option value="3">普通成员</option>
                             </select>
                         </div>
                     </form>
-                    <button type="button" class="btn btn-primary" @click="exitChange">确认修改</button>
+                    <button type="button" class="btn btn-primary" @click="exitChange" style="margin-left: 50%;transform: translateX(-50%)">确认修改</button>
                 </div>
                 <div id="profile" class="tab-pane fade">
                     <h3>创建社团管理</h3>
@@ -67,6 +80,13 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="communityName" placeholder="请输入社团名称" v-model="commName">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile" class="col-sm-3 control-label">社团图片：</label>
+                            <input type="file" id="exampleInputFile">
+                            <input type="button" onclick="upload(this)" value="shangchuang">
+                            <input type="textarea" style="display: none" id="commPic" placeholder="请输入社团理事长" v-model="commPic">
+
                         </div>
                         <div class="form-group">
                             <label for="communityBoss" class="col-sm-3 control-label">理事长：</label>
@@ -93,20 +113,20 @@
                             </div>
                         </div>
                     </form>
-                    <button type="button" class="btn btn-primary" @click="createComm">确认创建</button>
+                    <button type="button" class="btn btn-primary" @click="createComm" style="margin-left: 50%;transform: translateX(-50%)">确认创建</button>
                 </div>
                 <div id="messages" class="tab-pane fade">
                     <h3>解散社团管理</h3>
                     <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">社团名称：</label>
-                            <select class="form-control" @change="getDeleteId($event)">
+                        <div class="form-group commGroup">
+                            <label class="control-label">社团名称：</label>
+                            <select class="form-control box" @change="getDeleteId($event)">
                                 <option value="1">请选择</option>
                                 <option v-for="(p,index) in activityList" :key="index" :value="p.commId">{{p.commName}}</option>
                             </select>
                         </div>
                     </form>
-                    <button type="button" class="btn btn-primary" @click="deleteComm">确认解散</button>
+                    <button type="button" class="btn btn-primary" @click="deleteComm" style="margin-left: 50%;transform: translateX(-50%)">确认解散</button>
                 </div>
             </div>
         </div>
@@ -129,6 +149,7 @@
             player: '',
             commName: '',
             commBoss:'',
+            commPic: '',
             commInfo:'',
             commActivity:'',
             commClassId:'',
@@ -186,28 +207,31 @@
                 axios.post('/community/roleChange',params)
                     .then((response) => {
                     console.log('社团账号权限修改成功')
+                    swal('社团账号权限修改成功')
                  }).catch(function (error) {
                     console.log(error);
                 });
             },
             /*创建社团*/
             createComm(){
+                let url = document.getElementById("commPic").getAttribute("value")
                 let params = {
                     commName:this.commName,
                     loginName:this.commBoss,
                     commInfo:this.commInfo,
                     commSpecialAct:this.commActivity,
-                    commClassId:this.commClassId
+                    commClassId:this.commClassId,
+                    commPic: url
                 }
                 axios.post('/community/commAdd',params)
                     .then((response) => {
                     console.log('社团创建成功')
+                    swal('创建社团成功')
             }).catch(function (error) {
                     console.log(error);
                 });
             },
             getDeleteId(event){
-                console.log('进入结算社团了')
                 console.log(event.target.value)
                 this.deleteCommId=event.target.value
             },
@@ -216,6 +240,7 @@
                 axios.post('/community/commDel',{commId:this.deleteCommId})
                     .then((response) => {
                     console.log('删除社团成功')
+                    swal('删除社团成功')
             }).catch(function (error) {
                     console.log(error);
                 });

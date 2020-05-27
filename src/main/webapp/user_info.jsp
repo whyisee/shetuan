@@ -26,7 +26,12 @@
     </ul>
 </div>
 
-
+<
+<form>
+    <input type="file" id="fileName1">
+    <img id="img1" src="">
+    <input type="button" onclick="upload(this)" value="shangchuang">
+</form>
 ${login.loginName }
 ${funcright}
 <script src="/js/user_info.js"></script>

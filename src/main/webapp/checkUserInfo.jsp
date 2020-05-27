@@ -127,6 +127,7 @@
                 axios.post('/member/update', params)
                     .then((response) => {
                     console.log('修改个人信息成功')
+                    swal("修改个人信息成功");
             }).
                 catch(function (error) {
                     console.log(error);

@@ -14,7 +14,7 @@ var example1 = new Vue({
 function upload(obj) {
     var formData = new FormData();//这里需要实例化一个FormData来进行文件上传
     var type = "file";
-    formData.append(type,$("#fileName1")[0].files[0]);
+    formData.append(type,$("#exampleInputFile")[0].files[0]);
 
     $.ajax({
         type : "POST",
@@ -24,7 +24,7 @@ function upload(obj) {
         contentType : false,
         success : function(data){
             console.log(data);
-            $("#img1").attr("src","/upload/"+data)
+            $("#commPic").attr("value",data)
             //$("input[name='userUrl']").val(data);
     }});
 }

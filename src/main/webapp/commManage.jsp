@@ -15,6 +15,16 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
+    <style type="text/css">
+        .commGroup{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            width: 450px !important;
+        }
+    </style>
 </head>
 <body>
 <div id="manage">
@@ -60,7 +70,7 @@
                         </div>
                     </div>
                 </form>
-                <button type="button" class="btn btn-primary" @click="editCommInfo()">确认修改</button>
+                <button type="button" class="btn btn-primary" @click="editCommInfo()" style="margin-left: 50%;transform: translateX(-50%)">确认修改</button>
             </div>
             <div id="profile" class="tab-pane fade">
                 <h3>社团成员信息</h3>
@@ -120,14 +130,14 @@
             </div>
             <div id="messages" class="tab-pane fade">
                 <h3>活动信息管理</h3>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">社团活动：</label>
-                    <select class="form-control" @change="changeProduct($event)">
+                <div class="form-group commGroup">
+                    <label class="control-label">社团活动：</label>
+                    <select class="form-control box" @change="changeProduct($event)">
                         <option value="1">请选择</option>
                         <option v-for="(p,index) in activityList" :key="index" :value="p.activityId">{{p.activityName}}</option>
                     </select>
+                    <button @click="search" style="margin-left: 20px;margin-bottom: 10px;width: 50px;height: 30px;background-color: #528fc6">查询</button>
                 </div>
-                <button @click="search">查询</button>
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">活动标题：</label>
@@ -166,7 +176,7 @@
                         </div>
                     </div>
                 </form>
-                <button type="button" class="btn btn-primary" @click="changeActivity">确认修改</button>
+                <button type="button" class="btn btn-primary" @click="changeActivity" style="margin-left: 50%;transform: translateX(-50%)">确认修改</button>
             </div>
             <div id="settings" class="tab-pane fade">
                 <h3>信息审核</h3>
@@ -178,12 +188,12 @@
                         <li class="list-group-item">申请时间：{{p.create_date}}</li>
                         <li class="list-group-item" v-if="p.appro_info">申请理由：{{p.appro_info}}</li>
                         <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <button type="button" class="btn btn-primary" style="width: 100px" @click="refuseAppro(p.appro_id)" type="button" class="btn btn-primary btn-lg btn btn-link" data-toggle="modal" data-target="#refuse">拒绝</button>
+                            <div style="display: flex;flex-direction: row-reverse">
+                                <div>
+                                    <button type="button" class="btn btn-primary" style="width: 70px;margin-bottom: 0px;margin-top: 0px;margin-left: 20px" @click="refuseAppro(p.appro_id)" type="button" class="btn btn-primary btn-lg btn btn-link" data-toggle="modal" data-target="#refuse">拒绝</button>
                                 </div>
-                                <div class="col-sm-3">
-                                    <button type="button" class="btn btn-primary" style="width: 100px" @click="agreeAppro(p.appro_id)" type="button" class="btn btn-primary btn-lg btn btn-link" data-toggle="modal" data-target="#agree">同意</button>
+                                <div>
+                                    <button type="button" class="btn btn-primary" style="width: 70px;margin-bottom: 0px;margin-top: 0px" @click="agreeAppro(p.appro_id)" type="button" class="btn btn-primary btn-lg btn btn-link" data-toggle="modal" data-target="#agree">同意</button>
                                 </div>
                             </div>
                         </li>
@@ -300,6 +310,7 @@
                 .then((response) => {
                 this.activityList = response.data
             console.log('修改社团信息成功')
+            swal('修改社团信息成功')
             console.log(response.data)
 
         })
@@ -346,6 +357,7 @@
                 axios.post('/community/commUpdate', params)
                     .then((response) => {
                     console.log('修改社团信息成功')
+                    swal('修改社团信息成功')
             })
             .
                 catch(function (error) {
@@ -371,6 +383,7 @@
                 axios.post('/activity/update', params)
                     .then((response) => {
                     console.log('修改社团活动信息成功')
+                    swal('修改社团活动信息成功')
             })
             .
                 catch(function (error) {
@@ -396,6 +409,7 @@
                 axios.post('/community/memberDel', {commId: value, dealLoginId: name})
                     .then((response) => {
                     console.log('删除成员信息')
+                    swal('删除成员信息')
             })
             .
                 catch(function (error) {
@@ -440,6 +454,7 @@
                 axios.post('/appro/deal', params)
                     .then((response) => {
                     console.log('同意申请')
+                    swal('已同意该申请')
             })
             .
                 catch(function (error) {
@@ -459,11 +474,12 @@
             axios.post('/appro/deal',params)
                 .then((response)=>{
                 console.log('拒绝申请')
-        })
-        .catch(function (error) {
-                console.log(error);
-            });
-        },
+                swal('已拒绝该申请')
+            })
+            .catch(function (error) {
+                    console.log(error);
+                });
+            },
         }
     })
 </script>

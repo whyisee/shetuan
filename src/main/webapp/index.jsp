@@ -66,15 +66,15 @@
 						<li class="y-in"><a :href="'adminManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>
 						<li><a href="/member/logout"> | 注销</a></li>--%>
 
-                        <div class="btn-group" style="z-index: 1000">
+                        <div class="btn-group">
                             <button class="btn btn-default btn-lg dropdown-toggle y-in" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 欢迎：${login.loginName } <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="adminManage.jsp">管理系统</a></li>
-                                <li><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">系统管理</a></li></li>
 								<li><a href="checkUserInfo.jsp?loginName=${login.loginName }">查看个人信息</a></li>
 								<li><a href="editCode.jsp">修改密码</a></li>
+                                <li><a href="adminManage.jsp">管理系统</a></li>
+                                <li><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">系统管理</a></li></li>
                             </ul>
                         </div>
                         <li><a href="/member/logout"> | 注销</a></li>
@@ -170,7 +170,7 @@
                     <div class="serv-details">
                         <div class="row">
                         <div class="col-sm-6 col-xs-6">
-                            <img src="images/serv-img1.jpg" alt="" class="img-responsive slideanim">
+                            <img :src="p.commPic" alt="" class="img-responsive slideanim">
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="serv-img-details slideanim">
@@ -312,6 +312,7 @@
                 axios.post('/appro/memberAdd',params)
                     .then((response)=>{
                     console.log('申请加入成功')
+                    swal("申请加入社团成功");
             })
             .catch(function (error) {
                     console.log(error);
