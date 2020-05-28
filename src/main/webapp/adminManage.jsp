@@ -16,7 +16,6 @@
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
     <script src="js/user_info.js"></script>
-
     <script src="js/sweetalert.min.js"></script>
     <style type="text/css">
         .commGroup{
@@ -39,7 +38,7 @@
             <ul class="nav nav-pills nav-stacked" id="myTab">
                 <li role="presentation" class="active"><a href="#home" data-toggle="tab">账号权限</a></li>
                 <li role="presentation"><a href="#profile" data-toggle="tab">创建社团</a></li>
-                <li role="presentation"><a href="#messages" data-toggle="tab">结散社团</a></li>
+                <li role="presentation"><a href="#messages" data-toggle="tab">解散社团</a></li>
             </ul>
         </div>
         <div class="rightSide col-md-8">
@@ -83,8 +82,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputFile" class="col-sm-3 control-label">社团图片：</label>
-                            <input type="file" id="exampleInputFile">
-                            <input type="button" onclick="upload(this)" value="shangchuang">
+                            <input type="file" id="exampleInputFile" style="display: inline-block;margin-left: 20px">
+                            <input type="button" onclick="upload(this)" value="确定">
                             <input type="textarea" style="display: none" id="commPic" placeholder="请输入社团理事长" v-model="commPic">
 
                         </div>

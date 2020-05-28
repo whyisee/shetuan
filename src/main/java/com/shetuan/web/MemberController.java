@@ -24,6 +24,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -295,7 +297,7 @@ public class MemberController extends BaseController{
 
     @RequestMapping(value="/getInfo",method = {RequestMethod.GET})
     public @ResponseBody
-    MemberEntity getInfoForGet(ModelMap modelMap, HttpServletRequest request,@RequestParam Map<String,Object> params,HttpSession session){
+    MemberEntity getInfoForGet(ModelMap modelMap, HttpServletRequest request,@RequestParam Map<String,Object> params,HttpSession session) throws UnsupportedEncodingException {
         ModelMap modelMap1=new ModelMap();
         MemberEntity memberEntity=new MemberEntity();
         LoginEntity loginEntity=((LoginEntity)session.getAttribute("login"));
@@ -306,6 +308,8 @@ public class MemberController extends BaseController{
         }
         String loginName=params.get("loginName")==null?null:params.get("loginName").toString();
         String loginNameNow=loginEntity.getLoginName();
+        loginName = URLDecoder.decode(loginName,"UTF-8");
+
  /*       String roleId="";
         if(null!=loginName&&loginName.length()>0&&!loginName.equals(loginNameNow)){
             roleId=loginResponsitory.getRoleIdbyLoginName(loginNameNow);
@@ -315,13 +319,14 @@ public class MemberController extends BaseController{
         }else{
             memberEntity=memberResponsitory.findByLoginName(loginNameNow).get(0);
         }*/
+        System.out.println("111"+loginName);
         memberEntity=memberResponsitory.findByLoginName(loginName).get(0);
 
         return memberEntity;
     }
     @RequestMapping(value="/getInfo",method = {RequestMethod.POST})
     public @ResponseBody
-    MemberEntity getInfo(ModelMap modelMap, HttpServletRequest request,@RequestBody  Map<String,Object> params,HttpSession session){
+    MemberEntity getInfo(ModelMap modelMap, HttpServletRequest request,@RequestBody  Map<String,Object> params,HttpSession session) throws UnsupportedEncodingException {
         ModelMap modelMap1=new ModelMap();
         MemberEntity memberEntity=new MemberEntity();
         LoginEntity loginEntity=((LoginEntity)session.getAttribute("login"));
@@ -331,6 +336,7 @@ public class MemberController extends BaseController{
             return memberEntity;
         }
         String loginName=params.get("loginName")==null?null:params.get("loginName").toString();
+        loginName = URLDecoder.decode(loginName,"UTF-8");
  /*       String loginNameNow=loginEntity.getLoginName();
         String roleId="";
         if(null!=loginName&&loginName.length()>0&&!loginName.equals(loginNameNow)){
@@ -341,6 +347,8 @@ public class MemberController extends BaseController{
         }else{
             memberEntity=memberResponsitory.findByLoginName(loginNameNow).get(0);
         }*/
+        System.out.println("111"+loginName);
+
         memberEntity=memberResponsitory.findByLoginName(loginName).get(0);
 
         return memberEntity;

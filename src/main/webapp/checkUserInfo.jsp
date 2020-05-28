@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta charset="UTF-8"/>
     <script src="js/jquery.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
     <script src="js/backtotop.js"></script>

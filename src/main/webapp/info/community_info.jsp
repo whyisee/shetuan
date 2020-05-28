@@ -15,6 +15,7 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
 <script src="/js/axios.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
 </head>
 <body id="index.html" data-spy="scroll" data-target=".navbar" data-offset="60">
 <!-- About Section -->
@@ -223,6 +224,7 @@
                     msgInfo:this.message
 				}
                 axios.post('/message/add',params)
+					swal('留言成功')
                     .then((response) => {
                     console.log('保存留言成功')
             	}).catch(function (error) {

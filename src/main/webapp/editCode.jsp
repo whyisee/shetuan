@@ -14,6 +14,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <title>修改密码</title>
     <style type="text/css">
         body{

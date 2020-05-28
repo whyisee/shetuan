@@ -62,24 +62,17 @@
 						<li><a href="regist.jsp" style="{color:#fffff;}">注册</a></li>
 					</c:if>
 					<c:if test="${login != null}">
-						<%--<li class="y-in"><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>
-						<li class="y-in"><a :href="'adminManage.jsp?id='+id+'&classId='+commClassId">欢迎：${login.loginName }</a></li>
-						<li><a href="/member/logout"> | 注销</a></li>--%>
-
-                        <div class="btn-group">
-                            <button class="btn btn-default btn-lg dropdown-toggle y-in" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                欢迎：${login.loginName } <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-								<li><a href="checkUserInfo.jsp?loginName=${login.loginName }">查看个人信息</a></li>
-								<li><a href="editCode.jsp">修改密码</a></li>
-                                <li><a href="adminManage.jsp">管理系统</a></li>
-                                <li><a :href="'commManage.jsp?id='+id+'&classId='+commClassId">系统管理</a></li></li>
-                            </ul>
-                        </div>
-                        <li><a href="/member/logout"> | 注销</a></li>
+                        <li class="y-in"><a href="#">欢迎：${login.loginName }</a></li>
+                        <li><a href="checkUserInfo.jsp?loginName=${login.loginName }"> | 查看个人信息</a></li>
+                        <li><a href="editCode.jsp"> | 修改密码</a></li>
+						<li><a href="/member/logout"> | 注销</a></li>
 					</c:if>
-
+                    <c:if test="${roleId == '200'}">
+                        <li><a :href="'commManage.jsp?id='+id+'&classId='+commClassId"> | 社团管理</a></li>
+                    </c:if>
+                    <c:if test="${roleId == '100'}">
+                        <li><a href="adminManage.jsp"> | 系统管理</a></li>
+                    </c:if>
 				</ul>
 			</div>
 
@@ -146,7 +139,7 @@
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="index.jsp">首页</a></li>
 						<li><a href="index.jsp/#about">科技创新</a></li>
-						<li><a href="index.jsp/#services">理论研究</a></li>
+						<li><a href="index.jsp/#services">文学研究</a></li>
 						<li><a href="index.jsp/#gallery">社会服务</a></li>
 						<li><a href="index.jsp/#curriculum">试运行</a></li>
 						<li><a href="index.jsp/#contact">体育竞技</a></li>
@@ -170,7 +163,7 @@
                     <div class="serv-details">
                         <div class="row">
                         <div class="col-sm-6 col-xs-6">
-                            <img :src="p.commPic" alt="" class="img-responsive slideanim">
+                            <img :src="p.commPic" alt="" class="img-responsive slideanim" style="width: 268px;height: 268px;border-radius: 16px">
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="serv-img-details slideanim">
@@ -289,6 +282,7 @@
                  				console.log('初始化了')
                                 this.id=value.commId
                                 this.commClassId=value.commClassId
+
              }
                     })
 

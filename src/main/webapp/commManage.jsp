@@ -15,6 +15,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <style type="text/css">
         .commGroup{
             display: flex;
@@ -181,7 +182,7 @@
             <div id="settings" class="tab-pane fade">
                 <h3>信息审核</h3>
                 <div class="panel panel-default">
-                    <div class="panel-heading">加入社团申请</div>
+                    <div class="panel-heading">审核申请</div>
                     <ul class="list-group" v-for="(p,index) in auditList" :key="index">
                         <li class="list-group-item">姓名：{{p.appro_login_name}}</li>
                         <li class="list-group-item">申请类型：{{p.appro_name}}</li>
@@ -309,8 +310,7 @@
             axios.post('/activity/findAll', {commId: this.Id})
                 .then((response) => {
                 this.activityList = response.data
-            console.log('修改社团信息成功')
-            swal('修改社团信息成功')
+                console.log('修改社团信息成功')
             console.log(response.data)
 
         })
