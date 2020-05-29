@@ -82,10 +82,10 @@
                     passwdOld:this.code,
                     passwdNew:this.newCode
                 }
+                swal('修改密码成功')
                 axios.post('/member/updatePWD', params)
                     .then((response) => {
                     console.log('修改密码成功')
-                    swal("修改密码成功");
                 }).
                 catch(function (error) {
                     console.log(error);

@@ -15,6 +15,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <title>查看个人信息</title>
     <style type="text/css">
         body{
@@ -125,10 +126,10 @@
                     address:this.infoList.address,
                     specially:this.infoList.specially
                 }
+                swal("修改个人信息成功");
                 axios.post('/member/update', params)
                     .then((response) => {
                     console.log('修改个人信息成功')
-                    swal("修改个人信息成功");
             }).
                 catch(function (error) {
                     console.log(error);

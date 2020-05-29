@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Null;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -258,7 +259,9 @@ public class CommunityController extends BaseController {
         CommunityEntity comm = new CommunityEntity();
         //先判断下账号是否有权限,管理员或者社团管理员可以修改
         LoginEntity login=(LoginEntity)session.getAttribute("login");
-        String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
+        String loginName=login.getLoginName();
+        loginName = URLDecoder.decode(loginName,"UTF-8");
+        String roleId=loginResponsitory.getRoleIdbyLoginName(loginName);
         if(roleId.equals(ConfigFactory.ROLE_CODE_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)||roleId.equals(ConfigFactory.ROLE_CODE_COMM_ADMIN)) {
 
             comm = BeanUtils.mapToBean(params,comm);
@@ -279,7 +282,9 @@ public class CommunityController extends BaseController {
         MemberEntity member = new MemberEntity();
         //先判断下账号是否有权限
         LoginEntity login=(LoginEntity)session.getAttribute("login");
-        String roleId=loginResponsitory.getRoleIdbyLoginName(login.getLoginName());
+        String loginName=login.getLoginName();
+        loginName = URLDecoder.decode(loginName,"UTF-8");
+        String roleId=loginResponsitory.getRoleIdbyLoginName(loginName);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
         String dateNowStr = sdf.format(d);

@@ -553,6 +553,7 @@ public class ApproController extends BaseController {
             CommMemberEntity commMemberEntity=commMemberResponsitory.findById(primaryKeyLoginCommID).get();
             commMemberEntity.setStatus("1");
             commMemberResponsitory.save(commMemberEntity);
+            params.put("commId",fllowId);
             communityService.memberAdd(params);
 
         }
@@ -563,6 +564,7 @@ public class ApproController extends BaseController {
             CommMemberEntity commMemberEntity=commMemberResponsitory.findById(primaryKeyLoginCommID).get();
             commMemberEntity.setStatus("0");
             commMemberResponsitory.save(commMemberEntity);
+            params.put("commId",fllowId);
             communityService.memberAdd(params);
         }
         //

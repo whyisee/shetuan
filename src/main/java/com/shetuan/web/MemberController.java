@@ -357,6 +357,7 @@ public class MemberController extends BaseController{
     public String logout(HttpSession session){
         session.removeAttribute("login");
         session.removeAttribute("funcright");
+        session.removeAttribute("roleId");
 
 
         return "/index";

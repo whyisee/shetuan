@@ -184,7 +184,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">审核申请</div>
                     <ul class="list-group" v-for="(p,index) in auditList" :key="index">
-                        <li class="list-group-item">姓名：{{p.appro_login_name}}</li>
+                        <li class="list-group-item">姓名：{{p.create_login_name}}</li>
                         <li class="list-group-item">申请类型：{{p.appro_name}}</li>
                         <li class="list-group-item">申请时间：{{p.create_date}}</li>
                         <li class="list-group-item" v-if="p.appro_info">申请理由：{{p.appro_info}}</li>
@@ -319,7 +319,7 @@
                 console.log(error);
             });
             /*查询审核信息*/
-            axios.post('/appro/list', {})
+            axios.post('/appro/list', {approStatus: '0'})
                 .then((response) => {
                 console.log('审核信息')
             console.log(response.data)
@@ -350,14 +350,14 @@
                     bossName: this.commInfo.bossName,
                     commInfo: this.commInfo.commInfo,
                     commSpecialAct: this.commInfo.commSpecialAct,
-                    commId: this.id,
+                    commId: this.Id,
                     commClassId: this.commClassId
                 }
+                swal('修改社团信息成功')
                 /*发送修改社团信息请求*/
                 axios.post('/community/commUpdate', params)
                     .then((response) => {
                     console.log('修改社团信息成功')
-                    swal('修改社团信息成功')
             })
             .
                 catch(function (error) {

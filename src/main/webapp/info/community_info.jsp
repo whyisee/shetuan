@@ -50,7 +50,9 @@
 						<div class="col-sm-10 col-xs-12">
 							<div class="about-info slideanim">
 								<h5>{{p.comm_name}}</h5>
-								<p>会长：{{p.comm_remark}}</p>
+								<p>姓名：{{p.login_name}}</p>
+								<p>职位：{{p.comm_worker}}</p>
+								<p>简介：{{p.comm_remark}}</p>
 							</div>
 						</div>
 					</div>						
@@ -128,7 +130,7 @@
                 });
                 /*社团主要成员请求*/
                 $.ajax({
-                    url:"/community/findMemberShow", //请求的url地址
+                    url:"/community/findMemberAll", //请求的url地址
                     contentType: 'application/json;charset=UTF-8',
                     dataType:"json", //返回格式为json
                     async:true,//请求是否异步，默认为异步，这也是ajax重要特性
@@ -139,6 +141,7 @@
                     },
                     success:function(req){
                         info.manageInfo=req
+                        console.log('社团成员')
 						console.log(req)
                     },
                     complete:function(){
